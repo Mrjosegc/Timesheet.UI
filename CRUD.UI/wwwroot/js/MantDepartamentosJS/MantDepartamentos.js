@@ -147,6 +147,8 @@ jsMantDepartamentos = {
                             $(jsMantDepartamentos.controles.ModalInputIdDepartamento).val(resultado.valorRetorno.idDepartamento)
                             $(jsMantDepartamentos.controles.ModalInputNombreDepartamento).val(resultado.valorRetorno.nombreDepartamento)
                             $(jsMantDepartamentos.controles.ModalInputDescripcionDepartamento).val(resultado.valorRetorno.descripcionDepartamento)
+                            $(jsMantDepartamentos.controles.ModalSelectEstadoDepartamento).val(resultado.valorRetorno.estadoDepartamento)
+
 
                         } else {
 
@@ -204,7 +206,7 @@ jsMantDepartamentos = {
                                     });
                                     setTimeout(() => {
                                         window.location.reload();
-                                    }, 5000)
+                                    }, 2000)
                                 } else {
                                     Swal.fire({
                                         title: "Error",
@@ -230,7 +232,7 @@ jsMantDepartamentos = {
 
                     IdDepartamento: $(jsMantDepartamentos.controles.ModalInputIdDepartamento).val(),
                     NombreDepartamento: $(jsMantDepartamentos.controles.ModalInputNombreDepartamento).val(),
-                    DescripcionDepartamento: $(jsMantDepartamentos.contDepartamentoes.ModalInputDescripcionDepartamento).val(),
+                    DescripcionDepartamento: $(jsMantDepartamentos.controles.ModalInputDescripcionDepartamento).val(),
                     EstadoDepartamento: $(jsMantDepartamentos.controles.ModalSelectEstadoDepartamento).val() === "true"
                 };
 

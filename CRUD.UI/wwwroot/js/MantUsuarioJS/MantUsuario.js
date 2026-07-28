@@ -46,6 +46,7 @@ jsMantUsuario = {
         ModalInputDireccion: '#ModalInputDireccion',
         ModalInputDepartamento: '#ModalInputDepartamento',
         ModalInputIdDepartamento: '#ModalInputIdDepartamento',
+        ModalbtnRestablecerContrasena: '#ModalbtnRestablecerContrasena',
 
     },
 
@@ -85,7 +86,6 @@ jsMantUsuario = {
                     Telefono: $(jsMantUsuario.controles.InputTelefono).val(),
                     Direccion: $(jsMantUsuario.controles.InputDireccion).val(),
                     IdDepartamento: $(jsMantUsuario.controles.InputIdDepartamento).val()
-
                 }
                 if (ObjUsr.Correo != "" && ObjUsr.Contrasena !== "" && ObjUsr.IdRol != "0" && ObjUsr.Nombre !== "" && ObjUsr.Apellido1 !== "" && ObjUsr.Apellido2 !== "" && ObjUsr.FechaNac !== "" && ObjUsr.Genero !== "0" && ObjUsr.Telefono !== "" && ObjUsr.Direccion !== "" && ObjUsr.IdDepartamento !== "") {
                     fetch('../Usuario/RegistrarUsuarios', {
@@ -319,7 +319,79 @@ jsMantUsuario = {
             } catch (e) {
                 console.warn("Ha ocurrido un errro en la función EliminarUsuarioPorId en el JS: ", e);
             }    
-        }
+        },
+
+        RestablecerContrasenaPorId: function () {
+
+            Swal.fire({
+                title: "¿Restablecer contraseña?",
+                html: "La contraseña del usuario será restablecida a la contraseña temporal <b>Abc123.</b><br><br>El usuario deberá cambiarla la próxima vez que inicie sesión.",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Sí, restablecer",
+                cancelButtonText: "Cancelar",
+                reverseButtons: true
+            }).then((result) => {
+
+                if (!result.isConfirmed)
+                    return;
+
+                let ObjUsuario = {
+
+                    IdUsuario: $(jsMantUsuario.controles.ModalInputIdUsuario).val(),
+                    Contrasena: "Abc123."
+
+                };
+
+                fetch('../Usuario/RestablecerContrasenaPorId', {
+                    
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(ObjUsuario)
+
+                })
+                    .then(response => response.json())
+
+                    .then(data => {
+
+                        if (data.ok) {
+
+                            Swal.fire({
+                                icon: "success",
+                                title: "Proceso completado",
+                                text: data.mensaje
+                            });
+
+                        }
+                        else {
+
+                            Swal.fire({
+                                icon: "error",
+                                title: "Atención",
+                                text: data.mensaje
+                            });
+
+                        }
+
+                    })
+
+                    .catch(error => {
+
+                        console.error(error);
+
+                        Swal.fire({
+                            icon: "error",
+                            title: "Error",
+                            text: "Ha ocurrido un error al restablecer la contraseña."
+                        });
+
+                    });
+
+            });
+
+        },
     },
 
     eventos: function () {
@@ -354,6 +426,11 @@ jsMantUsuario = {
 
         });
 
+        $(jsMantUsuario.controles.ModalbtnRestablecerContrasena).on("click", function () {
+
+            jsMantUsuario.metodos.RestablecerContrasenaPorId();
+
+        });
     }
 }
 

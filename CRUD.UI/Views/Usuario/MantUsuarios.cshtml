@@ -401,8 +401,9 @@
 
                             <tr>
 
-                                <th>IdUsuario</th>
+                               
                                 <th>Nombre Completo</th>
+                                <th>Departamento</th>
                                 <th>Puesto</th>
                                 <th>Correo</th>
                                 <th>Telefono</th>
@@ -416,8 +417,9 @@
                             @foreach (var usr in ListaUsuarios)
                             {
                                 <tr>
-                                    <td>@usr.IdUsuario</td>
+                                   
                                     <td>@usr.NombreCompleto</td>
+                                    <td>@usr.NombreDepartamento</td>
                                     <td>@usr.NombreRol</td>
                                     <td>@usr.Correo</td>
                                     <td>@usr.Telefono</td>

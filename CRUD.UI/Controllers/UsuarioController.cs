@@ -219,6 +219,29 @@ namespace CRUD.UI.Controllers
         }
 
         [HttpPost]
+        public IActionResult RestablecerContrasenaPorId([FromBody] UsuarioDTO ObjUsuario)
+        {
+            try
+            {
+                var respuesta = _MantUsuarioBLL.RestablecerContrasenaPorId(ObjUsuario);
+
+                return Json(new
+                {
+                    ok = respuesta.Ok,
+                    mensaje = respuesta.Mensaje
+                });
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    ok = false,
+                    mensaje = $"Ha ocurrido un error en el método RestablecerContrasenaPorId del controlador. {ex.Message}"
+                });
+            }
+        }
+
+        [HttpPost]
         public Respuesta<RolesDto> CrearRol([FromBody] RolesDto ObjRol)
         {
             Respuesta<RolesDto> respuesta = new Respuesta<RolesDto>();

@@ -29,6 +29,7 @@ namespace CRUD.DATA.DAPPER
         private const string sp_spObtenerDepartamentoPorId = "spObtenerDepartamentoPorId";
         private const string sp_spEditarDepartamentoPorId = "spEditarDepartamentoPorId";
         private const string sp_spEliminarDepartamentoPorId = "spEliminarDepartamentoPorId";
+        private const string sp_spRestablecerContrasenaPorId = "spRestablecerContrasenaPorId";
 
         #endregion
 
@@ -218,6 +219,7 @@ namespace CRUD.DATA.DAPPER
                                 {
                                     IdUsuario = (int)reader["IdUsuario"],
                                     NombreCompleto = (string)reader["NombreCompleto"],
+                                    NombreDepartamento = (string)reader["NombreDepartamento"],
                                     NombreRol = (string)reader["NombreRol"],
                                     Correo = (string)reader["Correo"],
                                     Telefono = (string)reader["Telefono"],
@@ -443,6 +445,54 @@ namespace CRUD.DATA.DAPPER
 
             return respuesta;
 
+        }
+
+        public Respuesta<UsuarioDTO> RestablecerContrasenaPorId(UsuarioDTO ObjUsuario)
+        {
+            Respuesta<UsuarioDTO> respuesta = new Respuesta<UsuarioDTO>();
+
+            try
+            {
+                var ConexionBD = _Config.GetConnectionString("Conexion");
+
+                using (SqlConnection connection = new SqlConnection(ConexionBD))
+                {
+                    connection.Open();
+
+                    using (SqlCommand command = new SqlCommand(sp_spRestablecerContrasenaPorId, connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+
+                        command.Parameters.Add(new SqlParameter("@pIdUsuario", SqlDbType.Int)
+                        {
+                            Value = ObjUsuario.IdUsuario
+                        });
+
+                        command.Parameters.Add(new SqlParameter("@pContrasena", SqlDbType.NVarChar, 100)
+                        {
+                            Value = ObjUsuario.Contrasena
+                        });
+
+                        using (SqlDataReader dr = command.ExecuteReader())
+                        {
+                            if (dr.Read())
+                            {
+                                respuesta.Ok = Convert.ToInt32(dr["Resultado"]) == 1;
+                                respuesta.Mensaje = dr["Mensaje"].ToString();
+                                respuesta.ValorRetorno = null;
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                respuesta.Ok = false;
+                respuesta.Mensaje = $"Ha ocurrido un error en la función RestablecerContrasenaPorId de la capa DAPPER. {ex.Message}";
+                respuesta.ValorRetorno = null;
+            }
+
+            return respuesta;
         }
 
         public Respuesta<RolesDto> CrearRol(RolesDto ObjRol)
@@ -841,19 +891,14 @@ namespace CRUD.DATA.DAPPER
                         command.Parameters.Add(new SqlParameter("@pDescripcionDepartamento", SqlDbType.NVarChar, 250) { Value = ObjDepartamento.DescripcionDepartamento });
                         command.Parameters.Add(new SqlParameter("@pEstadoDepartamento", SqlDbType.Bit) { Value = ObjDepartamento.EstadoDepartamento });
 
-                        int FilasAfectadas = command.ExecuteNonQuery();
-
-                        if (FilasAfectadas > 0)
+                        using (SqlDataReader dr = command.ExecuteReader())
                         {
-                            respuesta.Ok = true;
-                            respuesta.Mensaje = "La información del departamento ha sido actualizada de manera exitosa!";
-                            respuesta.ValorRetorno = null;
-                        }
-                        else
-                        {
-                            respuesta.Ok = false;
-                            respuesta.Mensaje = "Ha ocurrido un error al intentar actualizar la información del departamento.";
-                            respuesta.ValorRetorno = null;
+                            if (dr.Read())
+                            {
+                                respuesta.Ok = Convert.ToInt32(dr["Resultado"]) == 1;
+                                respuesta.Mensaje = dr["Mensaje"].ToString();
+                                respuesta.ValorRetorno = null;
+                            }
                         }
                     }
                 }
