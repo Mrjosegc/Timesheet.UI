@@ -1,0 +1,769 @@
+﻿
+@{
+    var ListaRoles = ViewBag.ListaRoles;
+    var ListaUsuarios = ViewBag.ListaUsuarios;
+    var ListaDepartamentos = ViewBag.ListaDepartamentos;
+}
+
+<head>
+
+    <link href="~/css/mantusuariocss/mantusuario.css" rel="stylesheet" />
+    <script defer src="~/js/mantusuariojs/mantusuario.js"></script>
+
+</head>
+
+<div>
+    <h1 class="LineaTitulo">Registro Personal</h1>
+
+    <div class="TabUsuarios">
+        <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true"><i class="fa-solid fa-user-plus"></i>&nbsp;Crear usuario</button>
+                <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false"><i class="fa-solid fa-user-gear"></i>&nbsp; Editar o eliminar usuario</button>
+
+            </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
+                <div class="row">
+
+    <!-- ==========================================
+                TARJETA INFORMACIÓN PERSONAL
+    =========================================== -->
+
+    <div class="col-lg-8">
+
+        <div class="card shadow-sm border-0 h-100">
+
+            <div class="card-header bg-white border-0 pt-4">
+
+                <h3 class="fw-bold mb-1">
+                    <i class="fa-solid fa-user text-primary"></i>
+                    Información Personal
+                </h3>
+
+                <p class="text-muted mb-0">
+                    Complete los datos personales del colaborador.
+                </p>
+
+            </div>
+
+            <div class="card-body">
+
+                <!-- Nombre -->
+
+                <div class="mb-4">
+
+                    <label class="form-label fw-semibold">
+                        Nombre
+                    </label>
+
+                    <div class="input-group">
+
+                        <span class="input-group-text">
+                            <i class="fa-solid fa-user"></i>
+                        </span>
+
+                        <input type="text"
+                               class="form-control"
+                               id="InputNombre"
+                               placeholder="Ingrese el nombre">
+
+                    </div>
+
+                </div>
+
+                <!-- Apellidos -->
+
+                <div class="row">
+
+                    <div class="col-lg-6 mb-4">
+
+                        <label class="form-label fw-semibold">
+                            Primer apellido
+                        </label>
+
+                        <div class="input-group">
+
+                            <span class="input-group-text">
+                                <i class="fa-solid fa-user"></i>
+                            </span>
+
+                            <input type="text"
+                                   class="form-control"
+                                   id="InputApellido1"
+                                   placeholder="Ingrese el primer apellido">
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-lg-6 mb-4">
+
+                        <label class="form-label fw-semibold">
+                            Segundo apellido
+                        </label>
+
+                        <div class="input-group">
+
+                            <span class="input-group-text">
+                                <i class="fa-solid fa-user"></i>
+                            </span>
+
+                            <input type="text"
+                                   class="form-control"
+                                   id="InputApellido2"
+                                   placeholder="Ingrese el segundo apellido">
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- Correo -->
+
+                <div class="mb-4">
+
+                    <label class="form-label fw-semibold">
+                        Correo electrónico
+                    </label>
+
+                    <div class="input-group">
+
+                        <span class="input-group-text">
+                            <i class="fa-solid fa-envelope"></i>
+                        </span>
+
+                        <input type="text"
+                               class="form-control"
+                               id="InputCorreo"
+                               placeholder="Ingrese el correo electrónico">
+
+                    </div>
+
+                </div>
+
+                <!-- Fecha y Género -->
+
+                <div class="row">
+
+                    <div class="col-lg-6 mb-4">
+
+                        <label class="form-label fw-semibold">
+                            Fecha de nacimiento
+                        </label>
+
+                        <div class="input-group">
+
+                            <span class="input-group-text">
+                                <i class="fa-solid fa-calendar-days"></i>
+                            </span>
+
+                            <input type="date"
+                                   class="form-control"
+                                   id="InputFechaNac">
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-lg-6 mb-4">
+
+                        <label class="form-label fw-semibold">
+                            Género
+                        </label>
+
+                        <div class="input-group">
+
+                            <span class="input-group-text">
+                                <i class="fa-solid fa-venus-mars"></i>
+                            </span>
+
+                            <select class="form-select" id="InputGenero">
+
+                                <option value="0" selected>
+                                    Seleccione una opción
+                                </option>
+
+                                <option value="1">
+                                    Masculino
+                                </option>
+
+                                <option value="2">
+                                    Femenino
+                                </option>
+
+                                <option value="3">
+                                    Prefiero no decirlo
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>    <!-- ==========================================
+                COLUMNA DERECHA
+    =========================================== -->
+
+    <div class="col-lg-4">
+
+        <!-- ===============================
+                INFORMACIÓN LABORAL
+        ================================ -->
+
+        <div class="card shadow-sm border-0 mb-3">
+
+            <div class="card-header bg-white border-0 pt-2">
+
+                <h4 class="fw-bold mb-1">
+                    <i class="fa-solid fa-briefcase text-primary"></i>
+                    Información Laboral
+                </h4>
+
+                <p class="text-muted mb-0">
+                    Asignación dentro de la organización.
+                </p>
+
+            </div>
+
+            <div class="card-body">
+
+                <div class="mb-4">
+
+                    <label class="form-label fw-semibold">
+                        Departamento
+                    </label>
+
+                    <div class="input-group">
+
+                        <span class="input-group-text">
+                            <i class="fa-solid fa-building"></i>
+                        </span>
+
+                        <select class="form-select"
+                                id="InputIdDepartamento">
+
+                            <option value="0" selected>
+                                Seleccione una opción
+                            </option>
+
+                            @foreach (var Dep in ListaDepartamentos)
+                            {
+                                <option value="@Dep.IdDepartamento">
+                                    @Dep.NombreDepartamento
+                                </option>
+                            }
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+                <div>
+
+                    <label class="form-label fw-semibold">
+                        Puesto
+                    </label>
+
+                    <div class="input-group">
+
+                        <span class="input-group-text">
+                            <i class="fa-solid fa-user-tie"></i>
+                        </span>
+
+                        <select class="form-select"
+                                id="InputRol">
+
+                            <option value="0" selected>
+                                Seleccione una opción
+                            </option>
+
+                            @foreach (var Rol in ListaRoles)
+                            {
+                                <option value="@Rol.IdRol">
+                                    @Rol.NombreRol
+                                </option>
+                            }
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ===============================
+                INFORMACIÓN DE CONTACTO
+        ================================ -->
+
+        <div class="card shadow-sm border-0">
+
+            <div class="card-header bg-white border-0 pt-2">
+
+                <h4 class="fw-bold mb-1">
+                    <i class="fa-solid fa-address-book text-primary"></i>
+                    Información de Contacto
+                </h4>
+
+                <p class="text-muted mb-0">
+                    Información para localizar al colaborador.
+                </p>
+
+            </div>
+
+            <div class="card-body">
+
+                <div class="mb-2">
+
+                    <label class="form-label fw-semibold">
+                        Teléfono
+                    </label>
+
+                    <div class="input-group">
+
+                        <span class="input-group-text">
+                            <i class="fa-solid fa-phone"></i>
+                        </span>
+
+                        <input type="text"
+                               class="form-control"
+                               id="InputTelefono"
+                               placeholder="Ingrese el teléfono">
+
+                    </div>
+
+                </div>
+
+                <div class="mb-4">
+
+                    <label class="form-label fw-semibold">
+                        Dirección
+                    </label>
+
+                    <div class="input-group">
+
+                        <span class="input-group-text">
+                            <i class="fa-solid fa-location-dot"></i>
+                        </span>
+
+                        <textarea class="form-control"
+                                  id="InputDireccion"
+                                  rows="2"
+                                  placeholder="Ingrese la dirección"></textarea>
+
+                    </div>
+
+                </div>
+
+                <button class="btn btn-primary w-100"
+                        id="btnCrearUsuario">
+
+                    <i class="fa-solid fa-user-plus"></i>
+
+                    &nbsp;
+
+                    Crear Usuario
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+                
+            </div>
+            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
+
+                <div class="row ContenidoTab">
+
+
+                    <table id="TbUsuarios" class="table table-light table-hover mt-5">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>IdUsuario</th>
+                                <th>Nombre Completo</th>
+                                <th>Puesto</th>
+                                <th>Correo</th>
+                                <th>Telefono</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            @foreach (var usr in ListaUsuarios)
+                            {
+                                <tr>
+                                    <td>@usr.IdUsuario</td>
+                                    <td>@usr.NombreCompleto</td>
+                                    <td>@usr.NombreRol</td>
+                                    <td>@usr.Correo</td>
+                                    <td>@usr.Telefono</td>
+                                    <td>
+                                        <button class="btn-warning btnObtenerUsuarioPorId" data-IdUsuario="@usr.IdUsuario" data-bs-toggle="modal" data-bs-target="#modalEditarEliminarUsuario"><i class="fa-regular fa-pen-to-square"></i> &nbsp;Editar</button>
+                                        <button class="btn-danger btnEliminarUsuario" data-IdUsuario="@usr.IdUsuario" data-bs-toggle="modal" data-bs-target="#EliminarUsuarioPorId"><i class="fa-regular fa-trash-can"></i> &nbsp;Eliminar</button>
+
+                                    </td>
+
+                                </tr>
+                            }
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Modal: Editar / Eliminar Usuario -->
+    <div class="modal fade" id="modalEditarEliminarUsuario" tabindex="-1" aria-labelledby="tituloModalUsuario" aria-hidden="true" data-bs-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" style="max-width: 80vw;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="tituloModalUsuario">
+                        <i class="fa-solid fa-user-gear me-2"></i>Editar / Eliminar Usuario
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+
+                <div class="modal-body">
+                    <!-- (Opcional) ID oculto del usuario -->
+                    <input class="form-control" type="text" id="ModalInputIdUsuario" hidden />
+
+                    <div class="container-fluid">
+                        <div class="row g-3">
+                            <div class="container-fluid">
+    <div class="row g-4 mt-2">
+
+        <!-- ===================================================== -->
+        <!-- TARJETA: INFORMACIÓN PERSONAL -->
+        <!-- ===================================================== -->
+        <div class="col-lg-5">
+
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+
+                    <h4 class="fw-bold">
+                        <i class="fa-solid fa-user text-primary me-2"></i>Información Personal
+                    </h4>
+
+                    <p class="text-muted mb-4">
+                        Datos personales del colaborador.
+                    </p>
+
+                    <div class="mb-3">
+                        <label class="form-label">Nombre:</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fa-solid fa-address-card"></i></span>
+                            <input class="form-control" id="ModalInputNombre" type="text" placeholder="Ingrese Nombre" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Primer apellido:</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fa-solid fa-address-card"></i></span>
+                                <input class="form-control" id="ModalInputApellido1" type="text" placeholder="Ingrese Primer Apellido" />
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Segundo apellido:</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fa-solid fa-address-card"></i></span>
+                                <input class="form-control" id="ModalInputApellido2" type="text" placeholder="Ingrese Segundo Apellido" />
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Fecha de nacimiento:</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fa-solid fa-calendar-days"></i></span>
+                                <input type="date"
+                                       class="form-control"
+                                       id="ModalInputFechaNac"
+                                       placeholder="Ingrese su fecha de nacimiento" />
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Genero:</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fa-solid fa-person-half-dress"></i></span>
+
+                                <select class="form-select" id="ModalInputGenero">
+
+                                    <option value="0" selected>Seleccione una opcion</option>
+                                    <option value="1">Masculino</option>
+                                    <option value="2">Femenino</option>
+                                    <option value="3">Prefiero no decirlo</option>
+
+                                </select>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Telefono:</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fa-solid fa-phone"></i></span>
+                            <input type="text"
+                                   class="form-control"
+                                   id="ModalInputTelefono"
+                                   placeholder="Ingrese su número de teléfono" />
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="form-label">Dirección:</label>
+
+                        <div class="input-group">
+
+                            <span class="input-group-text">
+                                <i class="fa-solid fa-map-location-dot"></i>
+                            </span>
+
+                            <textarea class="form-control"
+                                      id="ModalInputDireccion"
+                                      placeholder="Ingrese su dirección"></textarea>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ===================================================== -->
+        <!-- COLUMNA DERECHA -->
+        <!-- ===================================================== -->
+        <div class="col-lg-7">
+
+            <div class="row g-4">
+
+                <!-- =============================================== -->
+                <!-- TARJETA: INFORMACIÓN LABORAL -->
+                <!-- =============================================== -->
+                <div class="col-md-6">
+
+                    <div class="card shadow-sm">
+
+                        <div class="card-body">
+
+                            <h4 class="fw-bold">
+                                <i class="fa-solid fa-briefcase text-primary me-2"></i>Información Laboral
+                            </h4>
+
+                            <p class="text-muted mb-4">
+                                Asignación dentro de la organización.
+                            </p>
+
+                            <div class="mb-3">
+
+                                <label class="form-label">Departamento:</label>
+
+                                <div class="input-group">
+
+                                    <span class="input-group-text">
+                                        <i class="fa-solid fa-arrows-down-to-people"></i>
+                                    </span>
+
+                                    <select class="form-select" id="ModalInputDepartamento">
+
+                                        <option value="0" selected>Seleccione una opcion</option>
+
+                                        @foreach (var Dep in ListaDepartamentos)
+                                        {
+                                            <option value="@Dep.IdDepartamento">@Dep.NombreDepartamento</option>
+                                        }
+
+                                    </select>
+
+                                </div>
+
+                            </div>
+
+                            <div>
+
+                                <label class="form-label">Puesto:</label>
+
+                                <div class="input-group">
+
+                                    <span class="input-group-text">
+                                        <i class="fa-solid fa-arrows-down-to-people"></i>
+                                    </span>
+
+                                    <select class="form-select" id="ModalInputRol">
+
+                                        <option value="0" selected>Seleccione una opcion</option>
+
+                                        @foreach (var Rol in ListaRoles)
+                                        {
+                                            <option value="@Rol.IdRol">@Rol.NombreRol</option>
+                                        }
+
+                                    </select>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+                                <!-- =============================================== -->
+                <!-- TARJETA: DATOS DE ACCESO -->
+                <!-- =============================================== -->
+                <div class="col-md-6">
+
+                    <div class="card shadow-sm h-100">
+
+                        <div class="card-body">
+
+                            <h4 class="fw-bold">
+                                <i class="fa-solid fa-envelope text-primary me-2"></i>Datos de Acceso
+                            </h4>
+
+                            <p class="text-muted mb-4">
+                                Información de acceso al sistema.
+                            </p>
+
+                            <div class="mb-3">
+
+                                <label class="form-label">Correo:</label>
+
+                                <div class="input-group">
+
+                                    <span class="input-group-text">
+                                        <i class="fa-solid fa-envelope"></i>
+                                    </span>
+
+                                    <input class="form-control"
+                                           id="ModalInputCorreo"
+                                           type="text"
+                                           placeholder="Ingrese el correo electronico" />
+
+                                </div>
+
+                            </div>
+
+                            <div class="alert alert-primary small mb-0">
+
+                                <i class="fa-solid fa-circle-info me-2"></i>
+
+                                El correo electrónico se utiliza como usuario para iniciar sesión en el sistema.
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- =============================================== -->
+                <!-- TARJETA: SEGURIDAD -->
+                <!-- =============================================== -->
+                <div class="col-md-6">
+
+                    <div class="card border-warning shadow-sm">
+
+                        <div class="card-body">
+
+                            <h4 class="fw-bold text-dark">
+
+                                <i class="fa-solid fa-key text-warning me-2"></i>
+                                Seguridad
+
+                            </h4>
+
+                            <p class="text-muted mb-4">
+                                Gestione la contraseña del usuario.
+                            </p>
+
+                            <button type="button"
+                                    class="btn btn-outline-warning w-100"
+                                    id="ModalbtnRestablecerContrasena">
+
+                                <i class="fa-solid fa-rotate-right me-2"></i>
+
+                                <strong>Restablecer contraseña</strong>
+
+                                <br />
+
+                                <small>
+                                    Generará una contraseña temporal y el usuario deberá cambiarla al iniciar sesión.
+                                </small>
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+                       
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer d-flex justify-content-between">
+                
+                    <button type="button" class="btn btn-outline-danger" id="ModalbtnEliminarUsuario"><i class="fa-solid fa-trash-can"></i>&nbsp;Eliminar usuario</button>
+                
+                    <div>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="ModalbtnCancelarUsuario"><i class="fa-solid fa-xmark"></i>&nbsp;Cancelar</button>
+                        <button type="button" class="btn btn-primary" id="ModalbtnGuardarUsuario"><i class="fa-solid fa-floppy-disk"></i>&nbsp;Guardar cambios</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

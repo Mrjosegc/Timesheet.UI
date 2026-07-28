@@ -1,0 +1,634 @@
+﻿/* ==========================================================
+   TIMESHEET
+   PARTE 1
+   Fondo - Bienvenida - Reloj - Estado
+==========================================================*/
+
+body {
+    background: #f8f9fc;
+}
+
+/*==========================================================
+    CONTENEDOR
+==========================================================*/
+
+.TimeSheetContainer {
+    padding: 35px;
+}
+
+/*==========================================================
+    BIENVENIDA
+==========================================================*/
+
+.TituloDashboard {
+    font-size: 42px;
+    font-weight: 700;
+    color: #1d2433;
+    margin-bottom: 4px;
+}
+
+.SubTituloDashboard {
+    font-size: 20px;
+    color: #6b7280;
+    margin-bottom: 15px;
+}
+
+/*==========================================================
+    TARJETAS
+==========================================================*/
+
+.DashboardCard {
+    border: none;
+    border-radius: 25px;
+    background: #ffffff;
+    box-shadow: 0px 10px 35px rgba(0,0,0,.08);
+    overflow: hidden;
+    transition: .30s;
+    height: 140px;
+}
+
+    .DashboardCard:hover {
+        transform: translateY(-4px);
+        box-shadow: 0px 20px 40px rgba(0,0,0,.12);
+    }
+
+/*==========================================================
+    RELOJ
+==========================================================*/
+
+.RelojCard {
+    background: linear-gradient( 135deg, #22C55E, #06B6D4, #22C55E, #06B6D4 );
+    background-size: 300% 300%;
+    animation: GradienteReloj 8s ease infinite;
+    color: white;
+}
+
+    .RelojCard .card-body {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+@keyframes GradienteReloj {
+
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.TituloCard {
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: .5px;
+    margin-bottom: 20px;
+}
+
+    .TituloCard i {
+        margin-right: 8px;
+    }
+
+.HoraGrande {
+    font-size: 48px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin: 0;
+}
+
+#HoraActual {
+    font-size: inherit;
+    font-weight: inherit;
+}
+
+#PeriodoActual {
+    font-size: 26px;
+    font-weight: 500;
+    margin-left: 8px;
+    vertical-align: middle;
+}
+
+/*==========================================================
+    TARJETA ESTADO
+==========================================================*/
+
+.EstadoCard {
+    background: white;
+}
+
+    .EstadoCard .card-body {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+.EstadoActual {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-top: 12px;
+}
+
+.EstadoIcono {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: #dcfce7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+    .EstadoIcono i {
+        color: #16a34a;
+        font-size: 30px;
+    }
+
+#TituloEstado {
+    font-size: 32px;
+    font-weight: 700;
+    color: #16a34a;
+    margin-bottom: 6px;
+}
+
+#DescripcionEstado {
+    font-size: 17px;
+    color: #6b7280;
+    margin: 0;
+}
+
+/*==========================================================
+    EFECTOS
+==========================================================*/
+
+.DashboardCard::before {
+    content: "";
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    background: rgba(255,255,255,.08);
+    border-radius: 50%;
+    top: -50px;
+    right: -50px;
+}
+
+.RelojCard {
+    position: relative;
+}
+/*==========================================================
+    TARJETAS DE ACCIÓN
+==========================================================*/
+
+.TarjetaAccion {
+    position: relative;
+    width: 100%;
+    min-height: 180px;
+    border: none;
+    border-radius: 28px;
+    background: #ffffff;
+    overflow: hidden;
+    cursor: pointer;
+    transition: 0.35s ease;
+    box-shadow: 0 12px 35px rgba(0,0,0,.08);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 18px;
+}
+
+    .TarjetaAccion:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 25px 45px rgba(0,0,0,.15);
+    }
+
+/*==========================================================
+    TARJETA ENTRADA
+==========================================================*/
+
+.TarjetaEntrada {
+    border: 2px solid #3BCF79;
+    background: linear-gradient(180deg,#ffffff 0%,#F7FFF9 100%);
+}
+
+    .TarjetaEntrada::after {
+        content: "";
+        position: absolute;
+        left: -5%;
+        bottom: -35px;
+        width: 110%;
+        height: 90px;
+        background: #48D97D;
+        border-radius: 50%;
+        opacity: .18;
+    }
+
+/*==========================================================
+    TARJETA SALIDA
+==========================================================*/
+
+.TarjetaSalida {
+    border: 2px solid #FF7B7B;
+    background: linear-gradient(180deg,#ffffff 0%,#FFF7F7 100%);
+}
+
+    .TarjetaSalida::after {
+        content: "";
+        position: absolute;
+        left: -5%;
+        bottom: -35px;
+        width: 110%;
+        height: 90px;
+        background: #FF8A8A;
+        border-radius: 50%;
+        opacity: 0.18;
+    }
+
+/*==========================================================
+    ICONO
+==========================================================*/
+
+.IconoAccion {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 5px;
+    transition: .35s;
+}
+
+.TarjetaEntrada .IconoAccion {
+    background: rgba(59,207,121,.12);
+}
+
+.TarjetaSalida .IconoAccion {
+    background: rgba(255,123,123,.12);
+}
+
+.IconoAccion i {
+    font-size: 42px;
+}
+
+.TarjetaEntrada i {
+    color: #16A34A;
+}
+
+.TarjetaSalida i {
+    color: #DC2626;
+}
+
+/*==========================================================
+    EFECTO HOVER
+==========================================================*/
+
+.TarjetaAccion:hover .IconoAccion {
+    transform: scale(1.08);
+}
+
+.TarjetaAccion:hover h2 {
+    transform: scale(1.03);
+}
+
+/*==========================================================
+    TITULOS
+==========================================================*/
+
+.TarjetaAccion h2 {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 0px;
+    transition: .30s;
+}
+
+.TarjetaEntrada h2 {
+    color: #17984B;
+}
+
+.TarjetaSalida h2 {
+    color: #DC2626;
+}
+
+.TarjetaAccion p {
+    font-size: 16px;
+    color: #6B7280;
+    text-align: center;
+    max-width: 85%;
+    line-height: 1.4;
+}
+
+/*==========================================================
+    ETIQUETAS
+==========================================================*/
+
+.EstadoBoton {
+    margin-top: 15px;
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-size: 15px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.EstadoDisponible {
+    background: #DCFCE7;
+    color: #15803D;
+}
+
+.EstadoNoDisponible {
+    background: #FEE2E2;
+    color: #DC2626;
+}
+
+/*==========================================================
+    BOTÓN DESHABILITADO
+==========================================================*/
+
+.TarjetaAccion:disabled {
+    cursor: not-allowed;
+    opacity: .55;
+    filter: grayscale(.15);
+}
+
+    .TarjetaAccion:disabled:hover {
+        transform: none;
+        box-shadow: 0 12px 35px rgba(0,0,0,.08);
+    }
+
+    .TarjetaAccion:disabled .IconoAccion {
+        transform: none;
+    }
+
+/*==========================================================
+    DETALLE DECORATIVO
+==========================================================*/
+
+.TarjetaAccion::before {
+    content: "";
+    position: absolute;
+    right: 25px;
+    top: 25px;
+    width: 40px;
+    height: 40px;
+    background-image: radial-gradient(#D1D5DB 2px, transparent 2px);
+    background-size: 10px 10px;
+    opacity: .8;
+}
+/*==========================================================
+    RESUMEN DEL DÍA
+==========================================================*/
+
+.ResumenCard {
+    border: none;
+    border-radius: 25px;
+    background: #ffffff;
+    box-shadow: 0 12px 35px rgba(0,0,0,.08);
+    padding: 22px;
+    margin-top: 0px;
+}
+
+.TituloResumen {
+    font-size: 22px;
+    font-weight: 700;
+    color: #1d2433;
+    margin-bottom: 10px;
+}
+
+.ResumenItem {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.IconoResumen {
+    width: 40px;
+    height: 40px;
+    border-radius: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+    .IconoResumen i {
+        font-size: 22px;
+    }
+
+/* Colores */
+
+.IconoEntrada {
+    background: rgba(34,197,94,.10);
+    color: #16A34A;
+}
+
+.IconoSalida {
+    background: rgba(239,68,68,.10);
+    color: #DC2626;
+}
+
+.IconoTiempo {
+    background: rgba(59,130,246,.10);
+    color: #2563EB;
+}
+
+.IconoFecha {
+    background: rgba(168,85,247,.10);
+    color: #9333EA;
+}
+
+.ResumenTexto h6 {
+    margin: 0;
+    color: #6B7280;
+    font-size: 15px;
+}
+
+.ResumenTexto h3 {
+    margin-top: 6px;
+    font-size: 24px;
+    font-weight: 700;
+    color: #1d2433;
+}
+
+.ResumenTexto span {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 6px 15px;
+    border-radius: 30px;
+    background: #EEF2FF;
+    color: #4F46E5;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+/*==========================================================
+    FOOTER
+==========================================================*/
+
+.FooterTimeSheet {
+    text-align: center;
+    margin-top: 35px;
+    color: #9CA3AF;
+    font-size: 15px;
+}
+
+/*==========================================================
+    ANIMACIONES
+==========================================================*/
+
+@keyframes FadeUp {
+
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.DashboardCard,
+.TarjetaAccion,
+.ResumenCard {
+    animation: FadeUp .5s ease;
+}
+
+/*==========================================================
+    SCROLL
+==========================================================*/
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #EDF2F7;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #CBD5E1;
+    border-radius: 50px;
+}
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: #94A3B8;
+    }
+
+/*==========================================================
+    RESPONSIVE
+==========================================================*/
+
+@media(max-width:1200px) {
+
+    .HoraGrande {
+        font-size: 52px;
+    }
+
+    .TarjetaAccion {
+        min-height: 260px;
+    }
+}
+
+@media(max-width:992px) {
+
+    .TituloDashboard {
+        font-size: 34px;
+    }
+
+    .SubTituloDashboard {
+        font-size: 18px;
+    }
+
+    .DashboardCard {
+        margin-bottom: 25px;
+    }
+
+    .ResumenItem {
+        margin-bottom: 25px;
+    }
+}
+
+@media(max-width:768px) {
+
+    .TimeSheetContainer {
+        padding: 20px;
+    }
+
+    .TituloDashboard {
+        font-size: 30px;
+    }
+
+    .HoraGrande {
+        font-size: 46px;
+    }
+
+    .TarjetaAccion h2 {
+        font-size: 30px;
+    }
+
+    .TarjetaAccion {
+        min-height: 230px;
+    }
+
+    .ResumenTexto h3 {
+        font-size: 28px;
+    }
+}
+
+@media(max-width:576px) {
+
+    .TituloDashboard {
+        font-size: 26px;
+    }
+
+    .HoraGrande {
+        font-size: 38px;
+    }
+
+    .DashboardCard {
+        height: auto;
+        padding: 20px;
+    }
+
+    .EstadoActual {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+/*==========================================================
+    EFECTOS FINALES
+==========================================================*/
+
+.card,
+.TarjetaAccion,
+.ResumenCard {
+    transition: .30s ease;
+}
+
+    .card:hover,
+    .ResumenCard:hover {
+        transform: translateY(-3px);
+    }
+
+.fa-solid,
+.fa-regular {
+    transition: .30s;
+}
+
+.TarjetaAccion:hover i {
+    transform: scale(1.1);
+}

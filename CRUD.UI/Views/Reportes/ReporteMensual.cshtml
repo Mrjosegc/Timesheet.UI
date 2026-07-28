@@ -1,0 +1,167 @@
+﻿@{
+    var ListaRoles = ViewBag.ListaRoles;
+
+}
+
+<head>
+
+    <link href="~/css/mantusuariocss/mantusuario.css" rel="stylesheet" />
+    <script defer src="~/js/MantRolesJS/MantRoles.js"></script>
+
+</head>
+
+
+<h1 class="LineaTitulo text-center" >Mantenimiento de Roles</h1>
+
+
+<div class="TabRoles">
+    <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+
+        </div>
+    </nav>
+    <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
+
+            <div class="row ContenidoTab">
+
+                <h4 class="LineaTitulo">Crear nuevo Rol</h4>
+
+                <div class="col-4">
+                    <label class="form-label">Nombre del Rol:</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fa-solid fa-address-card"></i></span>
+                        <input type="text" class="form-control" id="InputNombreRol" placeholder="Ingrese el nombre del rol" />
+                    </div>
+                </div>
+
+                <div class="col-4">
+                    <label class="form-label">Descripción del Rol:</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fa-solid fa-address-card"></i></span>
+                        <input type="text" class="form-control" id="InputDescripcionRol" placeholder="Ingrese Descripción corta" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-4 BotonesCrearCancelar">
+
+                <button class="btn btn-primary mt-2" id="btnCrearRol"><i class="fa-solid fa-floppy-disk"></i>&nbsp;Crear Rol</button>
+            </div>
+
+                <!--Inicio Tabla Roles-->
+                <h4 class="LineaTitulo mt-4">Roles actuales</h4>
+                <table id="TbRoles" class="table table-light table-hover mt-1 mb-5">
+                    <thead>
+                        <tr>
+                            <th>IdRol</th>
+                            <th>Nombre del Rol</th>
+                            <th>Descripcion del Rol</th>
+                            <th>Estado</th>
+                            <th>Fecha de creación</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        @foreach (var usr in ListaRoles)
+                        {
+                            <tr>
+                                <td>@usr.IdRol</td>
+                                <td>@usr.NombreRol</td>
+                                <td>@usr.DescripcionRol</td>
+                                <td>
+                                    @if (usr.EstadoRol)
+                                    {
+                                        <span class="badge bg-success">Activo</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-danger">Inactivo</span>
+                                    }
+                                </td>
+                                <td>@usr.FechaCreacionRol.ToString("dd/MM/yyyy")</td>
+                                <td>
+
+                                    <button class="btn-warning btnObtenerRolPorId" data-IdRol="@usr.IdRol" data-bs-toggle="modal" data-bs-target="#modalEditarRolPorId"><i class="fa-regular fa-pen-to-square"></i> &nbsp;Editar</button>
+                                    <button class="btn-danger btnEliminarRol" data-IdRol="@usr.IdRol"><i class="fa-regular fa-trash-can"></i> &nbsp;Eliminar</button>
+
+                                </td>
+
+                            </tr>
+                        }
+
+                    </tbody>
+
+                </table>
+
+                <!--Fin Tabla Roles-->
+
+        </div>
+    </div>
+</div>
+<!-- Modal: Editar rol -->
+<div class="modal fade" id="modalEditarRolPorId" tabindex="-1" aria-labelledby="tituloModalRol" aria-hidden="true" data-bs-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" style="max-width: 80vw;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="tituloModalRol">
+                    <i class="fa-solid fa-user-gear me-2"></i>Editar Rol
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+
+            <div class="modal-body">
+                <!-- (Opcional) ID oculto del usuario -->
+                <input class="form-control" type="text" id="ModalInputIdRol" hidden />
+
+                <div class="container-fluid">
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <h6 class="mb-2 text-body-secondary">Datos de acceso</h6>
+                            <hr class="mt-0 mb-3">
+                        </div>
+
+                        <div class="col-4">
+                            <label class="form-label">Nombre del Rol:</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fa-solid fa-arrows-down-to-people"></i></span>
+                                <input class="form-control" id="ModalInputNombreRol" type="text" placeholder="Ingrese el nombre del rol" />
+                            </div>
+                        </div>
+
+                        <div class="col-4">
+                            <label class="form-label">Descripción del Rol:</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fa-solid fa-align-left"></i></span>
+                                <input class="form-control" id="ModalInputDescripcionRol" type="text" placeholder="Ingrese Descripción corta" />
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <label class="form-label">Estado:</label>
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="fa-solid fa-toggle-on"></i>
+                                </span>
+                                <select class="form-select" id="ModalSelectEstadoRol">
+                                    <option value="true">Activo</option>
+                                    <option value="false">Inactivo</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer d-flex justify-content-between">
+
+                <div>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="ModalbtnCancelarRol"><i class="fa-solid fa-xmark"></i>&nbsp;Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="ModalbtnGuardarRol"><i class="fa-solid fa-floppy-disk"></i>&nbsp;Guardar cambios</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

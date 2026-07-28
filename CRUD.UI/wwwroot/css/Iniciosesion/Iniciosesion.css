@@ -1,0 +1,123 @@
+﻿@keyframes FondoGradiente {
+
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+body {
+    background: linear-gradient( -45deg, #0F172A, #164E63, #0891B2, #22C55E );
+    background-size: 300% 300%;
+    animation: FondoGradiente 15s ease infinite;
+    min-height: 100vh;
+}
+
+/*==========================================================
+    CONTENEDOR LOGIN
+==========================================================*/
+
+.ContenedorInicioSesion {
+    width: 420px;
+    padding: 35px;
+    background: rgba(255,255,255,.15);
+    border: 1px solid rgba(255,255,255,.25);
+    border-radius: 20px;
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    box-shadow: 0 20px 45px rgba(0,0,0,.25);
+    color: white;
+}
+
+/*==========================================================
+    TITULOS
+==========================================================*/
+
+.LoginIcono {
+    font-size: 55px;
+    color: white;
+    margin-bottom: 15px;
+}
+
+.TituloLogin {
+    font-size: 34px;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.SubtituloLogin {
+    color: rgba(255,255,255,.85);
+    font-size: 15px;
+    margin-bottom: 0;
+}
+
+/*==========================================================
+    INPUTS
+==========================================================*/
+
+.input-group-text {
+    background: rgba(255,255,255,.20);
+    color: white;
+    border: 1px solid rgba(255,255,255,.20);
+}
+
+.form-control {
+    height: 50px;
+    border: 1px solid rgba(255,255,255,.20);
+    background: rgba(255,255,255,.10);
+    color: white;
+}
+
+    .form-control::placeholder {
+        color: rgba(255,255,255,.70);
+    }
+
+    .form-control:focus {
+        background: rgba(255,255,255,.15);
+        color: white;
+        border-color: rgba(255,255,255,.50);
+        box-shadow: none;
+    }
+
+/*==========================================================
+    BOTON
+==========================================================*/
+
+.BtnLogin {
+    height: 52px;
+    border: none;
+    border-radius: 12px;
+    background: transparent;
+    border: 2px solid rgba(255,255,255,.4);
+    color: white;
+    color: white;
+    font-size: 17px;
+    font-weight: 600;
+    transition: .3s;
+}
+
+    .BtnLogin:hover {
+        background: rgba(255,255,255,.12);
+        transform: translateY(-2px);
+    }
+.input-group .btn {
+    border: 1px solid rgba(255,255,255,.20);
+    background: rgba(255,255,255,.10);
+    color: white;
+}
+
+    .input-group .btn:hover {
+        background: rgba(255,255,255,.20);
+        color: white;
+    }
+
+    .input-group .btn:focus {
+        box-shadow: none;
+    }

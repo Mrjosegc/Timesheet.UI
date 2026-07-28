@@ -1,0 +1,154 @@
+﻿@{
+    ViewData["Title"] = "Sitio en construcción";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Sitio en construcción</title>
+
+    <link rel="stylesheet"
+          href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+    <style>
+            body {
+                min-height: 100vh;
+                margin: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-family: Arial, Helvetica, sans-serif;
+                background: linear-gradient( 135deg, #4e73df, #36b9cc, #1cc88a );
+                background-size: 300% 300%;
+                animation: moverFondo 12s ease infinite;
+            }
+
+            .contenedor-construccion {
+                width: 90%;
+                max-width: 650px;
+                padding: 45px 35px;
+                text-align: center;
+                border-radius: 20px;
+                background: rgba(255, 255, 255, 0.18);
+                backdrop-filter: blur(12px);
+                -webkit-backdrop-filter: blur(12px);
+                border: 1px solid rgba(255, 255, 255, 0.30);
+                box-shadow: 0 20px 45px rgba(0, 0, 0, 0.20);
+                color: white;
+            }
+
+            .icono-construccion {
+                font-size: 85px;
+                margin-bottom: 25px;
+                color: #f6c23e;
+                animation: movimientoIcono 2s ease-in-out infinite;
+            }
+
+            .contenedor-construccion h1 {
+                font-size: 42px;
+                font-weight: bold;
+                margin-bottom: 15px;
+            }
+
+            .contenedor-construccion p {
+                font-size: 18px;
+                margin-bottom: 30px;
+                color: rgba(255, 255, 255, 0.90);
+            }
+
+            .btn-regresar {
+                min-width: 190px;
+                padding: 12px 25px;
+                border: none;
+                border-radius: 30px;
+                font-weight: bold;
+                background-color: white;
+                color: #4e73df;
+                transition: all 0.3s ease;
+            }
+
+                .btn-regresar:hover {
+                    color: white;
+                    background-color: #4e73df;
+                    transform: translateY(-3px);
+                    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.20);
+                }
+
+            @@keyframes moverFondo {
+                0% {
+                    background-position: 0% 50%;
+                }
+
+                50% {
+                    background-position: 100% 50%;
+                }
+
+                100% {
+                    background-position: 0% 50%;
+                }
+            }
+
+            @@keyframes movimientoIcono {
+                0%,
+                100% {
+                    transform: translateY(0);
+                }
+
+                50% {
+                    transform: translateY(-10px);
+                }
+            }
+
+            @@media (max-width: 576px) {
+                .contenedor-construccion {
+                    padding: 35px 20px;
+                }
+
+                    .contenedor-construccion h1 {
+                        font-size: 32px;
+                    }
+
+                .icono-construccion {
+                    font-size: 65px;
+                }
+            }
+    </style>
+</head>
+
+<body>
+
+    <div class="contenedor-construccion">
+
+        <div class="icono-construccion">
+            <i class="fa-solid fa-person-digging"></i>
+        </div>
+
+        <h1>Sitio en construcción</h1>
+
+        <p>
+            Estamos trabajando para habilitar esta sección.
+            Muy pronto estará disponible.
+        </p>
+
+        <a asp-controller="Home"
+           asp-action="Index"
+           class="btn btn-regresar">
+
+            <i class="fa-solid fa-arrow-left"></i>
+            &nbsp;Volver al inicio
+
+        </a>
+
+    </div>
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,90 @@
+/*==========================================================
+    SIDEBAR
+==========================================================*/
+
+#accordionSidebar {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/*==========================================================
+    TARJETA USUARIO LAYOUT
+==========================================================*/
+
+.UsuarioDashboard {
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: calc(100% - 20px);
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 15px;
+    padding: 14px;
+    background: rgba(255,255,255,.95);
+    border-radius: 14px;
+    box-shadow: 0 8px 25px rgba(0,0,0,.08);
+    transition: .3s ease;
+}
+
+    .UsuarioDashboard:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 30px rgba(0,0,0,.12);
+    }
+
+.AvatarUsuario {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: linear-gradient(135deg,#0d6efd,#4aa3ff);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.DatosUsuario {
+    flex: 1;
+}
+
+    .DatosUsuario h6 {
+        margin: 0;
+        font-size: 15px;
+        font-weight: 600;
+        color: #212529;
+    }
+
+    .DatosUsuario small {
+        display: block;
+        color: #6c757d;
+        font-size: 12px;
+        margin-top: 2px;
+    }
+
+    .DatosUsuario .badge {
+        margin-top: 6px;
+    }
+/*==========================================================
+    SIDEBAR FIJO
+==========================================================*/
+
+#accordionSidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 224px;
+    height: 100vh;
+    overflow-y: auto;
+    z-index: 1000;
+}
+/*==========================================================
+    CONTENIDO PRINCIPAL
+==========================================================*/
+
+#content-wrapper {
+    margin-left: 224px;
+}

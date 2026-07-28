@@ -1,0 +1,351 @@
+﻿@{
+    ViewData["Title"] = "Time Sheet";
+}
+
+<link href="~/css/TimeSheetCSS/TimeSheet.css" rel="stylesheet" />
+<script defer src="~/js/TimeSheetJS/TimeSheet.js"></script>
+
+<div class="container-fluid TimeSheetContainer">
+
+    <!-- Encabezado -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-0">
+
+        <div>
+
+            <h1 class="TituloDashboard">
+                ¡Hola, @Context.Session.GetString("NombreUsuario")! 👋
+            </h1>
+
+            <p class="SubTituloDashboard">
+                Aquí puedes registrar tu asistencia diaria.
+            </p>
+
+        </div>
+
+    </div>
+
+    <!-- ============================= -->
+    <!-- Reloj + Estado -->
+    <!-- ============================= -->
+
+    <div class="row mb-0">
+
+        <!-- Reloj -->
+
+        <div class="col-lg-5 mb-4">
+
+            <div class="card DashboardCard RelojCard">
+
+                <div class="card-body">
+
+                    <h6 class="TituloCard">
+
+                        <i class="fa-solid fa-calendar-days"></i>
+
+                        <span id="FechaActual">
+                            Viernes, 24 de Julio de 2026
+                        </span>
+
+                    </h6>
+
+                    <h1 class="HoraGrande">
+                        <span id="HoraActual">08:01:45</span>
+                        <span id="PeriodoActual">AM</span>
+                    </h1>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Estado -->
+
+        <div class="col-lg-5 mb-4">
+
+            <div class="card DashboardCard EstadoCard">
+
+                <div class="card-body">
+
+                    <h6 class="TituloCard">
+
+                        ESTADO DE TU JORNADA
+
+                    </h6>
+
+                    <div class="EstadoContenido">
+
+                        <div class="EstadoActual">
+
+                            <div class="EstadoIcono">
+
+                                <i id="IconoEstado" class="fa-solid fa-user-clock"></i>
+
+                            </div>
+
+                            <div>
+
+                                <h3 id="TituloEstado">
+
+                                    Sin marcar
+
+                                </h3>
+
+                                <p id="DescripcionEstado">
+
+                                    Aún no has registrado tu entrada.
+
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ============================= -->
+    <!-- Entrada / Salida -->
+    <!-- ============================= -->
+
+    <div class="row mb-0">
+
+        <!-- Entrada -->
+
+        <div class="col-lg-5 mb-4">
+
+            <button id="BtnEntrada"
+                    class="TarjetaAccion TarjetaEntrada">
+
+                <div class="IconoAccion">
+
+                    <i class="fa-solid fa-right-to-bracket"></i>
+
+                </div>
+
+                <h2>
+
+                    Marcar Entrada
+
+                </h2>
+
+                <p>
+
+                    Registra la hora de inicio de tu jornada laboral.
+
+                </p>
+
+                <div class="EstadoBoton EstadoDisponible">
+
+                    <i class="fa-regular fa-clock"></i>
+
+                    Disponible
+
+                </div>
+
+            </button>
+
+        </div>
+
+        <!-- Salida -->
+
+        <div class="col-lg-5 mb-4">
+
+            <button id="BtnSalida"
+                    class="TarjetaAccion TarjetaSalida"
+                    disabled>
+
+                <div class="IconoAccion">
+
+                    <i class="fa-solid fa-right-from-bracket"></i>
+
+                </div>
+
+                <h2>
+
+                    Marcar Salida
+
+                </h2>
+
+                <p>
+
+                    Registra la finalización de tu jornada laboral.
+
+                </p>
+
+                <div class="EstadoBoton EstadoNoDisponible">
+
+                    <i class="fa-solid fa-lock"></i>
+
+                    No disponible
+
+                </div>
+
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- ============================= -->
+    <!-- Resumen -->
+    <!-- ============================= -->
+
+    <div class="row">
+
+        <div class="col-10">
+
+            <div class="ResumenCard">
+
+                <h5 class="TituloResumen">
+
+                    RESUMEN DE HOY
+
+                </h5>
+
+                <div class="row">
+
+                    <div class="col-lg-4">
+
+                        <div class="ResumenItem">
+
+                            <div class="IconoResumen IconoEntrada">
+
+                                <i class="fa-regular fa-clock"></i>
+
+                            </div>
+
+                            <div class="ResumenTexto">
+
+                                <h6>Hora de entrada</h6>
+
+                                <h3 id="HoraEntradaResumen">
+
+                                    --:--
+
+                                </h3>
+
+                                <span id="EstadoEntrada">
+
+                                    Pendiente
+
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-lg-4">
+
+                        <div class="ResumenItem">
+
+                            <div class="IconoResumen IconoSalida">
+
+                                <i class="fa-regular fa-clock"></i>
+
+                            </div>
+
+                            <div class="ResumenTexto">
+
+                                <h6>Hora de salida</h6>
+
+                                <h3 id="HoraSalidaResumen">
+
+                                    --:--
+
+                                </h3>
+
+                                <span id="EstadoSalida">
+
+                                    Pendiente
+
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-lg-4">
+
+                        <div class="ResumenItem">
+
+                            <div class="IconoResumen IconoTiempo">
+
+                                <i class="fa-solid fa-stopwatch"></i>
+
+                            </div>
+
+                            <div class="ResumenTexto">
+
+                                <h6>Tiempo trabajado</h6>
+
+                                <h3 id="TiempoTrabajado">
+
+                                    00:00
+
+                                </h3>
+
+                                <!--<span>
+
+                                    0 horas 0 minutos
+
+                                </span>-->
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!--<div class="col-lg-3">
+
+                        <div class="ResumenItem">
+
+                            <div class="IconoResumen IconoFecha">
+
+                                <i class="fa-regular fa-calendar-days"></i>
+
+                            </div>
+
+                            <div class="ResumenTexto">
+
+                                <h6>Fecha</h6>
+
+                                <h3 id="FechaResumen">
+
+                                    24/07/2026
+
+                                </h3>
+
+                                <span>
+
+                                    Viernes
+
+                                </span
+
+                            </div>
+
+                        </div>
+
+                    </div>-->
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

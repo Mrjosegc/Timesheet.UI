@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="CRUD.DATA.DAPPER/CRUD.DATA.DAPPER.csproj" />
+  <Project Path="CRUD.ENTIDADES/CRUD.ENTIDADES.csproj" />
+  <Project Path="CRUD.LOGICA.NEGOCIO/CRUD.LOGICA.NEGOCIO.csproj" />
+  <Project Path="CRUD.UI/CRUD.UI.csproj" />
+</Solution>

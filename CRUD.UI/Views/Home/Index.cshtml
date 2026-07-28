@@ -1,0 +1,463 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutPublico.cshtml";
+    ViewData["Title"] = "Inicio";
+}
+
+
+
+<body>
+
+    <div class="site-wrap">
+
+
+        <div class="site-navbar py-2">
+
+            <div class="search-wrap">
+                <div class="container">
+                    <a href="#" class="search-close js-search-close"><span class="icon-close2"></span></a>
+                    <form action="#" method="post">
+                        <input type="text" class="form-control" placeholder="Search keyword and hit enter...">
+                    </form>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="d-flex align-items-center justify-content-between">
+                    <div class="logo">
+                        <div class="site-logo">
+                            <a href="index.html" class="js-logo-clone">Pharma</a>
+                        </div>
+                    </div>
+                    <div class="main-nav d-none d-lg-block">
+                        <nav class="site-navigation text-right text-md-center" role="navigation">
+                            <ul class="site-menu js-clone-nav d-none d-lg-block">
+                                <li class="active"><a href="index.html">INICIO</a></li>
+                                <li><a href="shop.html">TIENDA</a></li>
+                                <li class="has-children">
+                                    <a href="#">Categorías</a>
+                                    <ul class="dropdown">
+
+                                        @if (ViewBag.ListaCategorias != null)
+                                        {
+                                            foreach (var cat in ViewBag.ListaCategorias)
+                                            {
+                                                <li>
+                                                    <a href="#">@cat.NombreCategoria</a>
+                                                </li>
+                                            }
+                                        }
+
+                                    </ul>
+                                </li>
+                                <li><a href="about.html">Acerca de</a></li>
+                                <li><a href="contact.html">Contacto</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <div class="icons">
+                        <a href="#" class="icons-btn d-inline-block js-search-open"><span class="icon-search" title="Busqueda"></span></a>
+                        <button type="button"
+                                class="btn btn-primary btn-sm"
+                                data-toggle="modal"
+                                data-target="#loginModal">
+                            <i class="fas fa-user"></i> Iniciar sesión
+                        </button>
+                        <!--Acceso al login anterior
+                            <a asp-controller="Inicio"
+                               asp-action="Iniciosesion"
+                               class="icons-btn d-inline-block"
+                               title="Iniciar sesión">
+                                <span class="icon-user"></span>
+                            </a>-->
+
+                        
+                        <a href="cart.html" class="icons-btn d-inline-block bag" title="Bolsa de compras">
+                            <span class="icon-shopping-bag"></span>
+                            <span class="number">2</span>
+                        </a>
+                        <a href="#" class="site-menu-toggle js-menu-toggle ml-3 d-inline-block d-lg-none">
+                            <span class="icon-menu"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="site-blocks-cover" style="background-image: url('images/FarmaciaIMG/hero_1.jpg');">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-7 mx-auto order-lg-2 align-self-center">
+                        <div class="site-block-cover-content text-center">
+                            <h2 class="sub-title">Effective Medicine, New Medicine Everyday</h2>
+                            <h1>Bienvenido a Pharma</h1>
+                            <p>
+                                <a href="#" class="btn btn-primary px-5 py-3">Comprar</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="site-section">
+            <div class="container">
+                <div class="row align-items-stretch section-overlap">
+                    <div class="col-md-6 col-lg-4 mb-4 mb-lg-0">
+                        <div class="banner-wrap bg-primary h-100">
+                            <a href="#" class="h-100">
+                                <h5>Free <br> Shipping</h5>
+                                <p>
+                                    Amet sit amet dolor
+                                    <strong>Lorem, ipsum dolor sit amet consectetur adipisicing.</strong>
+                                </p>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4 mb-4 mb-lg-0">
+                        <div class="banner-wrap h-100">
+                            <a href="#" class="h-100">
+                                <h5>Season <br> Sale 50% Off</h5>
+                                <p>
+                                    Amet sit amet dolor
+                                    <strong>Lorem, ipsum dolor sit amet consectetur adipisicing.</strong>
+                                </p>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4 mb-4 mb-lg-0">
+                        <div class="banner-wrap bg-warning h-100">
+                            <a href="#" class="h-100">
+                                <h5>Buy <br> A Gift Card</h5>
+                                <p>
+                                    Amet sit amet dolor
+                                    <strong>Lorem, ipsum dolor sit amet consectetur adipisicing.</strong>
+                                </p>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="site-section">
+            <div class="container">
+                <div class="row">
+                    <div class="title-section text-center col-12">
+                        <h2 class="text-uppercase">Productos Populares</h2>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6 col-lg-4 text-center item mb-4">
+                        <span class="tag">Sale</span>
+                        <a href="shop-single.html"> <img src="images/FarmaciaIMG/product_01.png" alt="Image"></a>
+                        <h3 class="text-dark"><a href="shop-single.html">Bioderma</a></h3>
+                        <p class="price"><del>95.00</del> &mdash; $55.00</p>
+                    </div>
+                    <div class="col-sm-6 col-lg-4 text-center item mb-4">
+                        <a href="shop-single.html"> <img src="images/FarmaciaIMG/product_02.png" alt="Image"></a>
+                        <h3 class="text-dark"><a href="shop-single.html">Chanca Piedra</a></h3>
+                        <p class="price">$70.00</p>
+                    </div>
+                    <div class="col-sm-6 col-lg-4 text-center item mb-4">
+                        <a href="shop-single.html"> <img src="images/FarmaciaIMG/product_03.png" alt="Image"></a>
+                        <h3 class="text-dark"><a href="shop-single.html">Umcka Cold Care</a></h3>
+                        <p class="price">$120.00</p>
+                    </div>
+
+                    <div class="col-sm-6 col-lg-4 text-center item mb-4">
+
+                        <a href="shop-single.html"> <img src="images/FarmaciaIMG/product_04.png" alt="Image"></a>
+                        <h3 class="text-dark"><a href="shop-single.html">Cetyl Pure</a></h3>
+                        <p class="price"><del>45.00</del> &mdash; $20.00</p>
+                    </div>
+                    <div class="col-sm-6 col-lg-4 text-center item mb-4">
+                        <a href="shop-single.html"> <img src="images/FarmaciaIMG/product_05.png" alt="Image"></a>
+                        <h3 class="text-dark"><a href="shop-single.html">CLA Core</a></h3>
+                        <p class="price">$38.00</p>
+                    </div>
+                    <div class="col-sm-6 col-lg-4 text-center item mb-4">
+                        <span class="tag">Sale</span>
+                        <a href="shop-single.html"> <img src="images/FarmaciaIMG/product_06.png" alt="Image"></a>
+                        <h3 class="text-dark"><a href="shop-single.html">Poo Pourri</a></h3>
+                        <p class="price"><del>$89</del> &mdash; $38.00</p>
+                    </div>
+                </div>
+                <div class="row mt-5">
+                    <div class="col-12 text-center">
+                        <a href="shop.html" class="btn btn-primary px-4 py-3">Ver Todos Los Productos</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    
+        <div class="site-section bg-light">
+            <div class="container">
+                <div class="row">
+                    <div class="title-section text-center col-12">
+                        <h2 class="text-uppercase">Productos Nuevos</h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 block-3 products-wrap">
+                        <div class="nonloop-block-3 owl-carousel">
+
+                            <div class="text-center item mb-4">
+                                <a href="shop-single.html"> <img src="images/FarmaciaIMG/product_03.png" alt="Image"></a>
+                                <h3 class="text-dark"><a href="shop-single.html">Umcka Cold Care</a></h3>
+                                <p class="price">$120.00</p>
+                            </div>
+
+                            <div class="text-center item mb-4">
+                                <a href="shop-single.html"> <img src="images/FarmaciaIMG/product_01.png" alt="Image"></a>
+                                <h3 class="text-dark"><a href="shop-single.html">Umcka Cold Care</a></h3>
+                                <p class="price">$120.00</p>
+                            </div>
+
+                            <div class="text-center item mb-4">
+                                <a href="shop-single.html"> <img src="images/FarmaciaIMG/product_02.png" alt="Image"></a>
+                                <h3 class="text-dark"><a href="shop-single.html">Umcka Cold Care</a></h3>
+                                <p class="price">$120.00</p>
+                            </div>
+
+                            <div class="text-center item mb-4">
+                                <a href="shop-single.html"> <img src="images/FarmaciaIMG/product_04.png" alt="Image"></a>
+                                <h3 class="text-dark"><a href="shop-single.html">Umcka Cold Care</a></h3>
+                                <p class="price">$120.00</p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="site-section">
+            <div class="container">
+                <div class="row">
+                    <div class="title-section text-center col-12">
+                        <h2 class="text-uppercase">Testimonios</h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 block-3 products-wrap">
+                        <div class="nonloop-block-3 no-direction owl-carousel">
+
+                            <div class="testimony">
+                                <blockquote>
+                                    <img src="images/FarmaciaIMG/person_1.jpg" alt="Image" class="img-fluid w-25 mb-4 rounded-circle">
+                                    <p>&ldquo;Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nemo omnis voluptatem consectetur quam tempore obcaecati maiores voluptate aspernatur iusto eveniet, placeat ab quod tenetur ducimus. Minus ratione sit quaerat unde.&rdquo;</p>
+                                </blockquote>
+
+                                <p>&mdash; Kelly Holmes</p>
+                            </div>
+
+                            <div class="testimony">
+                                <blockquote>
+                                    <img src="images/FarmaciaIMG/person_2.jpg" alt="Image" class="img-fluid w-25 mb-4 rounded-circle">
+                                    <p>
+                                        &ldquo;Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nemo omnis voluptatem consectetur quam tempore
+                                        obcaecati maiores voluptate aspernatur iusto eveniet, placeat ab quod tenetur ducimus. Minus ratione sit quaerat
+                                        unde.&rdquo;
+                                    </p>
+                                </blockquote>
+
+                                <p>&mdash; Rebecca Morando</p>
+                            </div>
+
+                            <div class="testimony">
+                                <blockquote>
+                                    <img src="images/FarmaciaIMG/person_3.jpg" alt="Image" class="img-fluid w-25 mb-4 rounded-circle">
+                                    <p>
+                                        &ldquo;Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nemo omnis voluptatem consectetur quam tempore
+                                        obcaecati maiores voluptate aspernatur iusto eveniet, placeat ab quod tenetur ducimus. Minus ratione sit quaerat
+                                        unde.&rdquo;
+                                    </p>
+                                </blockquote>
+
+                                <p>&mdash; Lucas Gallone</p>
+                            </div>
+
+                            <div class="testimony">
+                                <blockquote>
+                                    <img src="images/FarmaciaIMG/person_4.jpg" alt="Image" class="img-fluid w-25 mb-4 rounded-circle">
+                                    <p>
+                                        &ldquo;Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nemo omnis voluptatem consectetur quam tempore
+                                        obcaecati maiores voluptate aspernatur iusto eveniet, placeat ab quod tenetur ducimus. Minus ratione sit quaerat
+                                        unde.&rdquo;
+                                    </p>
+                                </blockquote>
+
+                                <p>&mdash; Andrew Neel</p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="site-section bg-secondary bg-image" style="background-image: url('images/FarmaciaIMG/bg_2.jpg');">
+            <div class="container">
+                <div class="row align-items-stretch">
+                    <div class="col-lg-6 mb-5 mb-lg-0">
+                        <a href="#" class="banner-1 h-100 d-flex" style="background-image: url('images/FarmaciaIMG/bg_1.jpg');">
+                            <div class="banner-1-inner align-self-center">
+                                <h2>Pharma Products</h2>
+                                <p>
+                                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestiae ex ad minus rem odio voluptatem.
+                                </p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-lg-6 mb-5 mb-lg-0">
+                        <a href="#" class="banner-1 h-100 d-flex" style="background-image: url('images/FarmaciaIMG/bg_2.jpg');">
+                            <div class="banner-1-inner ml-auto  align-self-center">
+                                <h2>Rated by Experts</h2>
+                                <p>
+                                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestiae ex ad minus rem odio voluptatem.
+                                </p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <footer class="site-footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-lg-3 mb-4 mb-lg-0">
+
+                        <div class="block-7">
+                            <h3 class="footer-heading mb-4">Acerca de</h3>
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius quae reiciendis distinctio voluptates
+                                sed dolorum excepturi iure eaque, aut unde.
+                            </p>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-3 mx-auto mb-5 mb-lg-0">
+                        <h3 class="footer-heading mb-4">Enlaces Rápidos</h3>
+                        <ul class="list-unstyled">
+                            <li><a href="#">suplementos</a></li>
+                            <li><a href="#">Vitaminas</a></li>
+                            <li><a href="#">Dieta &amp; Nutrición</a></li>
+                            <li><a href="#">Te &amp; Cafe</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-md-6 col-lg-3">
+                        <div class="block-5 mb-5">
+                            <h3 class="footer-heading mb-4">Información de Contacto</h3>
+                            <ul class="list-unstyled">
+                                <li class="address">San Jose, Cosa Rica</li>
+                                <li class="phone"><a href="tel://00000000">+506 0000 0000</a></li>
+                                <li class="email">emailaddress@domain.com</li>
+                            </ul>
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="row pt-5 mt-5 text-center">
+                    <div class="col-md-12">
+                        <p>
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            Copyright &copy;
+                            <script>document.write(new Date().getFullYear());</script> All rights reserved | Made
+                            by <a href="https://www.linkedin.com/in/jose-garro" target="_blank"
+                                                                                     class="text-primary">Jose Garro Campos</a>
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </footer>
+        <!--Aqui Inicia el modal del login-->
+
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+        <div class="container py-5">
+
+            <div class="modal fade" id="loginModal" tabindex="-1">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Bienvenido!</h5>
+                            <button type="button" class="close" data-dismiss="modal">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="ModalLogin">
+                                <div class="mb-3">
+                                    <label class="form-label">Correo electrónico</label>
+                                    <div class="input-group">
+                                        <input id="InputCorreo" type="email" class="form-control" placeholder="nombre@ejemplo.com">
+                                        <span class="input-group-text">
+                                            <i class="fas fa-envelope"></i>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Contraseña</label>
+                                    <div class="input-group">
+                                        <input id="InputContrasena" type="password" class="form-control" placeholder="Ingrese su Contraseña">
+                                        <span id="btnMostrarContrasena" class="input-group-text password-toggle" style="cursor:pointer;">
+                                            <i id="IconoContrasena" class="fas fa-eye"></i>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="form-check">
+                                    <!-- A futuro se habilita esta opción
+                                    <div>
+                                        <input type="checkbox" class="form-check-input" id="remember">
+                                        <label class="form-check-label" for="remember">Recuerdame</label>
+                                    </div>
+                                    -->
+                                    <a href="#" class="text-decoration-none">Olvidó su contraseña?</a>
+                                </div>
+
+                                <button id="btnIniciarSesion" type="button" class="btn btn-login text-white">Iniciar Sesión</button>
+
+                                <!-- Futuro inicio con Google o Faccebook
+                                <div class="divider">
+                                    <span>or continue with</span>
+                                </div>
+
+                                <div class="social-login">
+                                    <button type="button" class="btn btn-social">
+                                        <i class="fab fa-google"></i>Google
+                                    </button>
+                                    <button type="button" class="btn btn-social">
+                                        <i class="fab fa-facebook-f"></i>Facebook
+                                    </button>
+                                </div>
+                                -->
+
+                                <div class="register-link">
+                                    Aun no tienes una cuenta? <a href="#" class="text-decoration-none">Registrate ahora</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Aqui finaliza el modal del login-->
+    </div>
+    @section Scripts {
+
+        <script src="~/js/InicioSesionJS/Iniciosesion.js"></script>
+
+    }
+
+</body>

@@ -1,0 +1,94 @@
+﻿@{
+    Layout = null;
+}
+
+<head>
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link href="~/css/iniciosesion/iniciosesion.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" />
+    <script defer src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script defer src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script defer src="~/js/iniciosesionjs/iniciosesion.js"></script>
+
+</head>
+
+<body>
+
+    <div class="container-fluid vh-100">
+
+        <div class="row h-100 justify-content-center align-items-center">
+
+            <div class="ContenedorInicioSesion">
+
+                <div class="text-center mb-4">
+
+                    <i class="fa-solid fa-user-shield LoginIcono"></i>
+
+                    <h1 class="TituloLogin">
+                        Inicio de sesión
+                    </h1>
+
+                    <p class="SubtituloLogin">
+                        Sistema de Control de Asistencia
+                    </p>
+
+                </div>
+
+                <form>
+
+                    <div class="input-group mb-4">
+
+                        <span class="input-group-text">
+                            <i class="fa-solid fa-user"></i>
+                        </span>
+
+                        <input id="InputCorreo"
+                               type="text"
+                               class="form-control"
+                               placeholder="Correo electrónico">
+
+                    </div>
+
+                    <div class="input-group mb-4">
+
+                        <span class="input-group-text">
+                            <i class="fa-solid fa-lock"></i>
+                        </span>
+
+                        <input id="InputContrasena"
+                               type="password"
+                               class="form-control"
+                               placeholder="Contraseña">
+
+                        <button class="btn btn-outline-secondary"
+                                type="button"
+                                id="btnMostrarContrasena"
+                                onclick="MostrarOcultarContrasena()">
+
+                            <i id="IconoMostrarContrasena"
+                               class="fa-solid fa-eye"></i>
+
+                        </button>
+
+                    </div>
+
+                    <button id="btnIniciarSesion"
+                            type="button"
+                            class="btn BtnLogin w-100">
+
+                        <i class="fa-solid fa-arrow-right-to-bracket"></i>
+                        &nbsp;Iniciar sesión
+
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>

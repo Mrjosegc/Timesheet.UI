@@ -1,0 +1,48 @@
+﻿
+
+.LineaTitulo{
+    border-bottom: 4px solid #00BFFF;
+    padding-top: 4px;
+    padding-bottom: 10px;
+
+
+}
+.TabUsuarios{
+
+    margin-top:20px;
+
+}
+
+
+.ContenidoTab{
+
+    margin-top: 20px;
+
+}
+
+.BotonesCrearCancelar{
+
+    margin-top: 15px;
+
+}
+.fondoDegradado {
+    background: linear-gradient( -45deg, #4e73df, #1cc88a, #36b9cc, #6f42c1 ) !important;
+    background-size: 400% 400%;
+    animation: fondoAnimado 15s ease infinite;
+    min-height: 100vh;
+}
+
+@keyframes fondoAnimado {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+

@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\Images\FarmaciaIMG\.DS_Store" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CRUD.ENTIDADES\CRUD.ENTIDADES.csproj" />
+    <ProjectReference Include="..\CRUD.LOGICA.NEGOCIO\CRUD.LOGICA.NEGOCIO.csproj" />
+  </ItemGroup>
+
+</Project>

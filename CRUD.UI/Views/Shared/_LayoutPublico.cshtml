@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>@ViewData["Title"] - Farmacia</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Rubik:400,700|Crimson+Text:400,400i" rel="stylesheet">
+
+    <!-- Estilos -->
+    <link rel="stylesheet" href="~/fonts/icomoon/style.css" />
+
+    <link rel="stylesheet" href="~/css/FarmaciaCSS/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/FarmaciaCSS/magnific-popup.css" />
+    <link rel="stylesheet" href="~/css/FarmaciaCSS/jquery-ui.css" />
+    <link rel="stylesheet" href="~/css/FarmaciaCSS/owl.carousel.min.css" />
+    <link rel="stylesheet" href="~/css/FarmaciaCSS/owl.theme.default.min.css" />
+    <link rel="stylesheet" href="~/css/FarmaciaCSS/aos.css" />
+    <link rel="stylesheet" href="~/css/FarmaciaCSS/style.css" />
+    <link rel="stylesheet" href="~/css/FarmaciaCSS/LoginModal.css" />
+
+</head>
+
+<body>
+
+    @RenderBody()
+
+    <!-- JavaScript -->
+    <script src="~/js/FarmaciaJS/jquery-3.3.1.min.js"></script>
+    <script src="~/js/FarmaciaJS/jquery-ui.js"></script>
+    <script src="~/js/FarmaciaJS/popper.min.js"></script>
+    <script src="~/js/FarmaciaJS/bootstrap.min.js"></script>
+    <script src="~/js/FarmaciaJS/owl.carousel.min.js"></script>
+    <script src="~/js/FarmaciaJS/jquery.magnific-popup.min.js"></script>
+    <script src="~/js/FarmaciaJS/aos.js"></script>
+    <script src="~/js/FarmaciaJS/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+</body>
+
+</html>

@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CRUD.DATA.DAPPER\CRUD.DATA.DAPPER.csproj" />
+    <ProjectReference Include="..\CRUD.ENTIDADES\CRUD.ENTIDADES.csproj" />
+  </ItemGroup>
+
+</Project>
