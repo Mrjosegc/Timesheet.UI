@@ -16,6 +16,7 @@ namespace CRUD.DATA.DAPPER
         private const string sp_spRegistrarEntrada = "spRegistrarEntrada";
         private const string sp_spRegistrarSalida = "spRegistrarSalida";
         private const string sp_spObtenerEstadoTimeSheet = "spObtenerEstadoTimeSheet";
+        private const string sp_spObtenerReporteTimeSheet = "spObtenerReporteTimeSheet";
 
         #endregion
 
@@ -189,6 +190,58 @@ namespace CRUD.DATA.DAPPER
 
             return respuesta;
 
+        }
+
+        public Respuesta<List<TimeSheetDTO>> ObtenerReporteTimeSheet()
+        {
+            Respuesta<List<TimeSheetDTO>> respuesta = new Respuesta<List<TimeSheetDTO>>();
+
+            try
+            {
+                List<TimeSheetDTO> lista = new List<TimeSheetDTO>();
+
+                var ConexionBD = _Config.GetConnectionString("Conexion");
+
+                using (SqlConnection connection = new SqlConnection(ConexionBD))
+                {
+                    connection.Open();
+
+                    using (SqlCommand command = new SqlCommand(sp_spObtenerReporteTimeSheet, connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+
+                        using (SqlDataReader dr = command.ExecuteReader())
+                        {
+                            while (dr.Read())
+                            {
+                                TimeSheetDTO item = new TimeSheetDTO();
+
+                                item.IdTimeSheet = Convert.ToInt32(dr["IdTimeSheet"]);
+                                item.IdUsuario = Convert.ToInt32(dr["IdUsuario"]);
+                                item.NombreCompleto = dr["NombreCompleto"].ToString();
+                                item.Fecha = Convert.ToDateTime(dr["Fecha"]);
+                                item.HoraEntrada = dr["HoraEntrada"] == DBNull.Value ? null : Convert.ToDateTime(dr["HoraEntrada"]);
+                                item.HoraSalida = dr["HoraSalida"] == DBNull.Value ? null : Convert.ToDateTime(dr["HoraSalida"]);
+                                item.MinutosTrabajados = dr["MinutosTrabajados"] == DBNull.Value ? null : Convert.ToInt32(dr["MinutosTrabajados"]);
+
+                                lista.Add(item);
+                            }
+                        }
+                    }
+                }
+
+                respuesta.Ok = true;
+                respuesta.Mensaje = "Reporte obtenido correctamente.";
+                respuesta.ValorRetorno = lista;
+            }
+            catch (Exception ex)
+            {
+                respuesta.Ok = false;
+                respuesta.Mensaje = $"Ha ocurrido un error en la función ObtenerReporteTimeSheet de la capa DAPPER. {ex.Message}";
+                respuesta.ValorRetorno = null;
+            }
+
+            return respuesta;
         }
 
         #endregion

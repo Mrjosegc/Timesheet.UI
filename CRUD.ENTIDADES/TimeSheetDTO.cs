@@ -15,5 +15,12 @@ namespace CRUD.ENTIDADES
         public DateTime? HoraEntrada { get; set; }
 
         public DateTime? HoraSalida { get; set; }
+
+        //==========================================================
+        // PROPIEDADES PARA REPORTES
+        //==========================================================
+        public string NombreCompleto { get; set; }
+
+        public int? MinutosTrabajados { get; set; }
     }
 }

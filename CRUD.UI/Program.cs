@@ -1,4 +1,5 @@
 using CRUD.BLL;
+using CRUD.BUSSINESLOGIC.BLL;
 using CRUD.DAPPER;
 using CRUD.DATA.DAPPER;
 using CRUD.LOGICA.NEGOCIO;
@@ -29,6 +30,9 @@ builder.Services.AddScoped<MantUsuariosDAPPER>();
 
 builder.Services.AddScoped<MantDashboardBLL>();
 builder.Services.AddScoped<MantDashboardDAPPER>();
+
+builder.Services.AddScoped<MantTimeSheetBLL>();
+builder.Services.AddScoped<MantTimeSheetDAPPER>();
 
 builder.Services.AddScoped<BitacoraBLL>();
 builder.Services.AddScoped<BitacoraDAPPER>();

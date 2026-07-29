@@ -9,10 +9,14 @@ namespace CRUD.UI.Controllers
     public class HomeController : Controller
     {
         private readonly MantDashboardBLL _mantDashboardBLL;
+        private readonly MantUsuariosBLL _mantUsuariosBLL;
 
-        public HomeController(MantDashboardBLL mantDashboardBLL)
+        public HomeController(
+            MantDashboardBLL mantDashboardBLL,
+            MantUsuariosBLL mantUsuariosBLL)
         {
             _mantDashboardBLL = mantDashboardBLL;
+            _mantUsuariosBLL = mantUsuariosBLL;
         }
 
         [AllowAnonymous]
@@ -59,6 +63,22 @@ namespace CRUD.UI.Controllers
         public IActionResult TimeSheet()
         {
             return View();
+        }
+
+        public IActionResult Reportes()
+        {
+            var puesto = HttpContext.Session.GetString("Puesto");
+
+            ViewBag.EsAdministrador = puesto == "Administrador";
+
+            var respuesta = _mantUsuariosBLL.ObtenerUsuarios();
+
+            if (respuesta != null && respuesta.Ok)
+            {
+                ViewBag.ListaUsuarios = respuesta.ValorRetorno;
+            }
+
+            return View("~/Views/Reportes/ReporteMensual.cshtml");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

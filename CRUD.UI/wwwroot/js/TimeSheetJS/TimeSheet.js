@@ -17,6 +17,8 @@
 
         EstadoEntrada: "#EstadoEntrada",
         EstadoSalida: "#EstadoSalida",
+
+        btnBuscarEmpleado: "#btnBuscarEmpleado"
     },
 
     iniciar: function () {
@@ -41,6 +43,12 @@
         $(jsTimeSheet.controles.BtnSalida).on("click", function () {
 
             jsTimeSheet.funciones.RegistrarSalida();
+
+        });
+
+        $(jsTimeSheet.controles.btnBuscarEmpleado).click(function () {
+
+            jsTimeSheet.funciones.AbrirModalBuscarEmpleado();
 
         });
 
@@ -396,7 +404,11 @@
 
         },
 
+        AbrirModalBuscarEmpleado: function () {
 
+            $("#modalBuscarEmpleado").modal("show");
+
+        },
     }
 
 }

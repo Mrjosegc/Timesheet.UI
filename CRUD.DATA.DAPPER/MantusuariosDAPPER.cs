@@ -141,7 +141,6 @@ namespace CRUD.DATA.DAPPER
                         command.CommandType = CommandType.StoredProcedure;
 
                         command.Parameters.Add(new SqlParameter("@pCorreo", SqlDbType.NVarChar, 80) { Value = ObjUsuario.Correo });
-                        command.Parameters.Add(new SqlParameter("@pContrasena", SqlDbType.NVarChar, 50) { Value = ObjUsuario.Contrasena });
                         command.Parameters.Add(new SqlParameter("@pIdRol", SqlDbType.Int) { Value = ObjUsuario.IdRol });
                         command.Parameters.Add(new SqlParameter("@pNombre", SqlDbType.NVarChar, 50) { Value = ObjUsuario.Nombre });
                         command.Parameters.Add(new SqlParameter("@pApellido1", SqlDbType.NVarChar, 50) { Value = ObjUsuario.Apellido1 });
@@ -349,7 +348,6 @@ namespace CRUD.DATA.DAPPER
 
                         command.Parameters.Add(new SqlParameter("@pIdUsuario", SqlDbType.Int) { Value = ObjUsuario.IdUsuario });
                         command.Parameters.Add(new SqlParameter("@pCorreo", SqlDbType.NVarChar, 80) { Value = ObjUsuario.Correo });
-                        command.Parameters.Add(new SqlParameter("@pContrasena", SqlDbType.NVarChar, 50) { Value = ObjUsuario.Contrasena });
                         command.Parameters.Add(new SqlParameter("@pIdRol", SqlDbType.Int) { Value = ObjUsuario.IdRol });
                         command.Parameters.Add(new SqlParameter("@pNombre", SqlDbType.NVarChar, 50) { Value = ObjUsuario.Nombre });
                         command.Parameters.Add(new SqlParameter("@pApellido1", SqlDbType.NVarChar, 50) { Value = ObjUsuario.Apellido1 });
