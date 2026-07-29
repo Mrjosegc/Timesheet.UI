@@ -30,6 +30,7 @@ namespace CRUD.DATA.DAPPER
         private const string sp_spEditarDepartamentoPorId = "spEditarDepartamentoPorId";
         private const string sp_spEliminarDepartamentoPorId = "spEliminarDepartamentoPorId";
         private const string sp_spRestablecerContrasenaPorId = "spRestablecerContrasenaPorId";
+        private const string sp_spCambiarContrasena = "spCambiarContrasena";
 
         #endregion
 
@@ -489,6 +490,59 @@ namespace CRUD.DATA.DAPPER
             {
                 respuesta.Ok = false;
                 respuesta.Mensaje = $"Ha ocurrido un error en la función RestablecerContrasenaPorId de la capa DAPPER. {ex.Message}";
+                respuesta.ValorRetorno = null;
+            }
+
+            return respuesta;
+        }
+
+        public Respuesta<UsuarioDTO> CambiarContrasena(UsuarioDTO ObjUsuario)
+        {
+            Respuesta<UsuarioDTO> respuesta = new Respuesta<UsuarioDTO>();
+
+            try
+            {
+                var ConexionBD = _Config.GetConnectionString("Conexion");
+
+                using (SqlConnection connection = new SqlConnection(ConexionBD))
+                {
+                    connection.Open();
+
+                    using (SqlCommand command = new SqlCommand(sp_spCambiarContrasena, connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+
+                        command.Parameters.Add(new SqlParameter("@pIdUsuario", SqlDbType.Int)
+                        {
+                            Value = ObjUsuario.IdUsuario
+                        });
+
+                        command.Parameters.Add(new SqlParameter("@pContrasenaActual", SqlDbType.NVarChar, 100)
+                        {
+                            Value = ObjUsuario.Contrasena
+                        });
+
+                        command.Parameters.Add(new SqlParameter("@pContrasenaNueva", SqlDbType.NVarChar, 100)
+                        {
+                            Value = ObjUsuario.ContrasenaNueva
+                        });
+
+                        using (SqlDataReader dr = command.ExecuteReader())
+                        {
+                            if (dr.Read())
+                            {
+                                respuesta.Ok = Convert.ToInt32(dr["Resultado"]) == 1;
+                                respuesta.Mensaje = dr["Mensaje"].ToString();
+                                respuesta.ValorRetorno = null;
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                respuesta.Ok = false;
+                respuesta.Mensaje = $"Ha ocurrido un error en la función CambiarContrasena de la capa DAPPER. {ex.Message}";
                 respuesta.ValorRetorno = null;
             }
 

@@ -218,6 +218,9 @@
                                  aria-labelledby="userDropdown">
 
                                 <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#ChangePassModal">
+                                    Cambiar Contraseña
+                                </a>
                                 <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Cerrar sesión
@@ -280,13 +283,91 @@
             </div>
         </div>
     </div>
+    <!-- Modal Cambiar Contraseña -->
+    <div class="modal fade"
+         id="ChangePassModal"
+         tabindex="-1"
+         aria-labelledby="ChangePassModalLabel"
+         aria-hidden="true"
+         data-bs-backdrop="static">
 
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ChangePassModalLabel">
+                        <i class="fa-solid fa-key me-2"></i>
+                        Cambiar Contraseña
+                    </h5>
+
+                    <button type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Cerrar">
+                    </button>
+                </div>
+
+                <div class="modal-body">
+
+                    <div class="mb-3">
+                        <label for="TxtContrasenaActual" class="form-label">
+                            Contraseña actual
+                        </label>
+
+                        <input type="password"
+                               class="form-control"
+                               id="TxtContrasenaActual"
+                               autocomplete="current-password">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="TxtContrasenaNueva" class="form-label">
+                            Nueva contraseña
+                        </label>
+
+                        <input type="password"
+                               class="form-control"
+                               id="TxtContrasenaNueva"
+                               autocomplete="new-password">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="TxtConfirmarContrasena" class="form-label">
+                            Confirmar nueva contraseña
+                        </label>
+
+                        <input type="password"
+                               class="form-control"
+                               id="TxtConfirmarContrasena"
+                               autocomplete="new-password">
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button"
+                            class="btn btn-secondary"
+                            data-bs-dismiss="modal">
+                        Cancelar
+                    </button>
+
+                    <button type="button"
+                            class="btn btn-primary"
+                            id="BtnCambiarContrasena">
+                        Guardar cambios
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- Custom scripts for all pages-->
     <script src="~/js/plantillajs/js/sb-admin-2.js"></script>
+    <script src="~/js/layoutjs/layout.js"></script>
 
     <!-- Page level plugins -->
     <script src="~/js/plantillajs/vendor/chart.js/chart.min.js"></script>

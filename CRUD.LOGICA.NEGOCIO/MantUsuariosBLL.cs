@@ -188,6 +188,11 @@ namespace CRUD.LOGICA.NEGOCIO
             return _MantUsuarioDapper.RestablecerContrasenaPorId(ObjUsuario);
         }
 
+        public Respuesta<UsuarioDTO> CambiarContrasena(UsuarioDTO ObjUsuario)
+        {
+            return _MantUsuarioDapper.CambiarContrasena(ObjUsuario);
+        }
+
         public Respuesta<RolesDto> CrearRol(RolesDto ObjRol)
         {
 

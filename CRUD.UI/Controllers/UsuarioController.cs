@@ -242,6 +242,30 @@ namespace CRUD.UI.Controllers
         }
 
         [HttpPost]
+        public Respuesta<UsuarioDTO> CambiarContrasena([FromBody] UsuarioDTO ObjUsuario)
+        {
+            Respuesta<UsuarioDTO> respuesta = new Respuesta<UsuarioDTO>();
+
+            try
+            {
+                var resBLL = _MantUsuarioBLL.CambiarContrasena(ObjUsuario);
+
+                if (resBLL != null)
+                {
+                    respuesta = resBLL;
+                }
+            }
+            catch (Exception ex)
+            {
+                respuesta.Ok = false;
+                respuesta.Mensaje = $"Ha ocurrido un error en el método CambiarContrasena en el controlador de Usuario. {ex.Message}";
+                respuesta.ValorRetorno = null;
+            }
+
+            return respuesta;
+        }
+
+        [HttpPost]
         public Respuesta<RolesDto> CrearRol([FromBody] RolesDto ObjRol)
         {
             Respuesta<RolesDto> respuesta = new Respuesta<RolesDto>();

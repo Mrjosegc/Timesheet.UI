@@ -392,6 +392,8 @@ jsMantUsuario = {
             });
 
         },
+
+
     },
 
     eventos: function () {
@@ -429,8 +431,8 @@ jsMantUsuario = {
         $(jsMantUsuario.controles.ModalbtnRestablecerContrasena).on("click", function () {
 
             jsMantUsuario.metodos.RestablecerContrasenaPorId();
-
         });
+
     }
 }
 
