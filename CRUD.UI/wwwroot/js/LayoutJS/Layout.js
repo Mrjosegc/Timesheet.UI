@@ -25,6 +25,25 @@ jsLayout = {
             jsLayout.metodos.CambiarContrasena(event);
 
         });
+        if (sessionStorage.getItem("AbrirCambioContrasena") === "true") {
+
+            sessionStorage.removeItem("AbrirCambioContrasena");
+
+            if (sessionStorage.getItem("CambioObligatorio") === "true") {
+
+                $("#ChangePassModal").modal({
+                    backdrop: "static",
+                    keyboard: false
+                });
+
+                $("#ChangePassModal .btn-close").hide();
+                $("#ChangePassModal .btn-secondary").hide();
+
+            }
+
+            $("#ChangePassModal").modal("show");
+
+        }
 
     },
 

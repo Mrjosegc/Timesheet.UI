@@ -87,7 +87,10 @@ jsIniciarSesion = {
 
                                 setTimeout(function () {
 
-
+                                    if (ObjUsuario.Contrasena === "Abc123.") {
+                                        sessionStorage.setItem("AbrirCambioContrasena", "true");
+                                        sessionStorage.setItem("CambioObligatorio", "true");
+                                    }
                                     window.location.href = '/Home/Dashboard';
 
                                 }, 2000)
