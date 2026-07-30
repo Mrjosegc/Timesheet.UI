@@ -19,6 +19,7 @@
         EstadoSalida: "#EstadoSalida",
 
         btnBuscarEmpleado: "#btnBuscarEmpleado",
+        ddlDepartamento: "#ddlDepartamento",
         TxtIdEmpleado: "#txtIdEmpleado",
         TxtEmpleado: "#txtEmpleado",
 
@@ -37,6 +38,8 @@
     iniciar: function () {
 
         jsTimeSheet.eventos();
+
+        jsTimeSheet.funciones.InicializarTablaBuscarEmpleado();
 
         // Solo ejecutar estas funciones en la vista TimeSheet
         if (document.getElementById("HoraActual")) {
@@ -90,6 +93,12 @@
         $(jsTimeSheet.controles.BtnExportarPdf).click(function () {
 
             jsTimeSheet.funciones.ExportarReportePdf();
+
+        });
+        $(jsTimeSheet.controles.ddlDepartamento).change(function () {
+
+            $(jsTimeSheet.controles.TxtIdEmpleado).val("0");
+            $(jsTimeSheet.controles.TxtEmpleado).val("");
 
         });
     },
@@ -446,6 +455,31 @@
 
         AbrirModalBuscarEmpleado: function () {
 
+            let idDepartamento = $(jsTimeSheet.controles.ddlDepartamento).val();
+
+            let tabla = $("#TbBuscarEmpleado").DataTable();
+
+            if (idDepartamento == "0") {
+
+                tabla.search("").draw();
+
+            } else {
+
+                $.fn.dataTable.ext.search = [];
+
+                $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
+
+                    let fila = tabla.row(dataIndex).node();
+                    let departamento = $(fila).data("departamento");
+
+                    return departamento == idDepartamento;
+
+                });
+
+                tabla.draw();
+
+            }
+
             $("#modalBuscarEmpleado").modal("show");
 
         },
@@ -742,6 +776,29 @@
                 });
 
             }
+
+        },
+
+        InicializarTablaBuscarEmpleado: function () {
+
+            if ($.fn.DataTable.isDataTable("#TbBuscarEmpleado")) {
+                return;
+            }
+
+            $("#TbBuscarEmpleado").DataTable({
+
+                pageLength: 10,
+                lengthChange: false,
+                ordering: true,
+                searching: true,
+                info: true,
+                autoWidth: false,
+
+                language: {
+                    url: "https://cdn.datatables.net/plug-ins/2.3.2/i18n/es-ES.json"
+                }
+
+            });
 
         },
 

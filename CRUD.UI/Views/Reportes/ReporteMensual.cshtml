@@ -29,14 +29,45 @@
                 Filtros de búsqueda
             </h6>
         </div>
-
         <div class="card-body">
+
+            @if (ViewBag.EsAdministrador)
+            {
+                <div class="row">
+
+                    <div class="col-3 md-4 mb-3">
+
+                        <label>Departamento</label>
+
+                        <select id="ddlDepartamento"
+                                class="form-control">
+
+                            <option value="0">
+                                Todos los departamentos
+                            </option>
+
+                            @if (ViewBag.ListaDepartamentos != null)
+                            {
+                                foreach (var departamento in ViewBag.ListaDepartamentos)
+                                {
+                                    <option value="@departamento.IdDepartamento">
+                                        @departamento.NombreDepartamento
+                                    </option>
+                                }
+                            }
+
+                        </select>
+
+                    </div>
+
+                </div>
+            }
 
             <div class="row">
 
                 @if (ViewBag.EsAdministrador)
                 {
-                    <div class="col-md-4 mb-3">
+                    <div class="col-3 md-4 mb-3">
 
                         <label>Empleado</label>
 
@@ -61,49 +92,48 @@
                         </div>
 
                     </div>
-
-                    <div class="col-md-4 mb-3">
-
-                        <label>Departamento</label>
-
-                        <select id="ddlDepartamento"
-                                class="form-control">
-
-                            <option value="0">
-                                Todos los departamentos
-                            </option>
-
-                        </select>
-
-                    </div>
                 }
 
-                <div class="col-md-2 mb-3">
+                <div class="col-auto md-2 mb-3">
+
                     <label>Desde</label>
+
                     <input type="date"
                            id="txtFechaInicio"
                            class="form-control" />
+
                 </div>
 
-                <div class="col-md-2 mb-3">
+                <div class="col-auto md-2 mb-3">
+
                     <label>Hasta</label>
+
                     <input type="date"
                            id="txtFechaFin"
                            class="form-control" />
+
                 </div>
 
             </div>
 
             <div class="text-right">
 
-                <button type="button" id="BtnGenerarReporte" class="btn btn-primary">
+                <button type="button"
+                        id="BtnGenerarReporte"
+                        class="btn btn-primary">
+
                     <i class="fas fa-desktop me-2"></i>
                     Reporte en pantalla
+
                 </button>
 
-                <button type="button" id="BtnExportarPdf" class="btn btn-danger ms-2">
+                <button type="button"
+                        id="BtnExportarPdf"
+                        class="btn btn-danger ms-2">
+
                     <i class="fas fa-file-pdf me-2"></i>
-                    Exportar PDF
+                    PDF
+
                 </button>
 
             </div>
@@ -262,30 +292,26 @@
 
                                 @foreach (var usuario in ViewBag.ListaUsuarios)
                                 {
-                                    <tr>
+                                    <tr data-departamento="@usuario.IdDepartamento">
                                         <td>@usuario.IdUsuario</td>
                                         <td>@usuario.NombreCompleto</td>
 
                                         <td class="text-center">
-
-                                        <button class="btn btn-primary btn-sm btnSeleccionarEmpleado"
-                                                data-id="@usuario.IdUsuario"
-                                                data-nombre="@usuario.NombreCompleto">
-                                            <i class="fas fa-check"></i>
-                                            Seleccionar
-                                        </button>
-
+                                            <button class="btn btn-primary btn-sm btnSeleccionarEmpleado"
+                                                    data-id="@usuario.IdUsuario"
+                                                    data-nombre="@usuario.NombreCompleto">
+                                                <i class="fas fa-check"></i>
+                                                Seleccionar
+                                            </button>
                                         </td>
-
                                     </tr>
-                                }
+}
 
                             </tbody>
 
                         </table>
 
                     </div>
-                </p>
 
             </div>
 

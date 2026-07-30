@@ -218,6 +218,7 @@ namespace CRUD.DATA.DAPPER
                                 UsuarioDTO Usuario = new UsuarioDTO
                                 {
                                     IdUsuario = (int)reader["IdUsuario"],
+                                    IdDepartamento = (int)reader["IdDepartamento"],
                                     NombreCompleto = (string)reader["NombreCompleto"],
                                     NombreDepartamento = (string)reader["NombreDepartamento"],
                                     NombreRol = (string)reader["NombreRol"],

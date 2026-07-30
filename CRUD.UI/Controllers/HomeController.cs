@@ -77,6 +77,13 @@ namespace CRUD.UI.Controllers
             {
                 ViewBag.ListaUsuarios = respuesta.ValorRetorno;
             }
+            // Cargar departamentos
+            var respuestaDepartamentos = _mantUsuariosBLL.ObtenerDepartamentos();
+
+            if (respuestaDepartamentos != null && respuestaDepartamentos.Ok)
+            {
+                ViewBag.ListaDepartamentos = respuestaDepartamentos.ValorRetorno;
+            }
 
             return View("~/Views/Reportes/ReporteMensual.cshtml");
         }
