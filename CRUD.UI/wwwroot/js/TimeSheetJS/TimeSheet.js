@@ -38,10 +38,14 @@
 
         jsTimeSheet.eventos();
 
-        jsTimeSheet.funciones.ActualizarReloj();
-        setInterval(jsTimeSheet.funciones.ActualizarReloj, 1000);
+        // Solo ejecutar estas funciones en la vista TimeSheet
+        if (document.getElementById("HoraActual")) {
 
-        jsTimeSheet.funciones.ObtenerEstadoTimeSheet();
+            jsTimeSheet.funciones.ActualizarReloj();
+            setInterval(jsTimeSheet.funciones.ActualizarReloj, 1000);
+
+            jsTimeSheet.funciones.ObtenerEstadoTimeSheet();
+        }
 
     },
 
@@ -78,7 +82,7 @@
         });
 
         $(jsTimeSheet.controles.BtnGenerarReporte).click(function () {
-            console.log("Btn funciona")
+
             jsTimeSheet.funciones.GenerarReporte();
 
         });

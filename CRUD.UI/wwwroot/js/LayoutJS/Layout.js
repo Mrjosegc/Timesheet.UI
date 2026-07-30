@@ -1,5 +1,4 @@
 ﻿
-console.log("Layout.js cargado");
 
 jsLayout = {
 
