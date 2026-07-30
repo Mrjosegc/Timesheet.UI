@@ -245,16 +245,14 @@
                 <div class="table-responsive">
 
                         <table id="TbBuscarEmpleado"
-                               class="table table-bordered table-hover w-100">
+                               class="table table-sm table-bordered table-hover w-100">
 
                             <thead>
 
                                 <tr>
-
-                                    <th>Empleado</th>
-                                    <th>Departamento</th>
-                                    <th>Puesto</th>
-                                    <th>Acción</th>
+                                    <th>Identificación</th>
+                                    <th>Nombre</th>
+                                    <th></th>
 
                                 </tr>
 
@@ -265,10 +263,8 @@
                                 @foreach (var usuario in ViewBag.ListaUsuarios)
                                 {
                                     <tr>
-
+                                        <td>@usuario.IdUsuario</td>
                                         <td>@usuario.NombreCompleto</td>
-                                        <td>@usuario.NombreDepartamento</td>
-                                        <td>@usuario.NombreRol</td>
 
                                         <td class="text-center">
 
