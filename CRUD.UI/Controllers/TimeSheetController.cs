@@ -1,5 +1,7 @@
 ﻿using CRUD.BUSSINESLOGIC.BLL;
 using CRUD.ENTIDADES;
+using QuestPDF.Fluent;
+using CRUD.UI.Reportes;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CRUD.UI.Controllers
@@ -17,6 +19,11 @@ namespace CRUD.UI.Controllers
         public TimeSheetController(IConfiguration config)
         {
             _MantTimeSheetBLL = new MantTimeSheetBLL(config);
+        }
+
+        public IActionResult ReporteMensual()
+        {
+            return View();
         }
 
         #endregion
@@ -97,6 +104,46 @@ namespace CRUD.UI.Controllers
             }
 
             return respuesta;
+        }
+
+        [HttpPost]
+        public IActionResult ExportarReportePdf([FromBody] TimeSheetDTO ObjTimeSheet)
+        {
+            try
+            {
+                var respuesta = _MantTimeSheetBLL.ObtenerReporteTimeSheet(ObjTimeSheet);
+
+                if (!respuesta.Ok)
+                {
+                    return BadRequest(respuesta.Mensaje);
+                }
+
+                if (respuesta.ValorRetorno == null || respuesta.ValorRetorno.Count == 0)
+                {
+                    return BadRequest("No existen datos para generar el reporte.");
+                }
+
+                var primerRegistro = respuesta.ValorRetorno.First();
+
+                var reporte = new ReporteMarcasPdfDTO
+                {
+                    NombreEmpleado = primerRegistro.NombreCompleto,
+                    NombreDepartamento = primerRegistro.NombreDepartamento,
+                    Periodo = $"{ObjTimeSheet.FechaInicio:dd/MM/yyyy} al {ObjTimeSheet.FechaFin:dd/MM/yyyy}",
+                    FechaReporte = DateTime.Now,
+                    Marcas = respuesta.ValorRetorno
+                };
+
+                var documento = new ReporteMarcasPdf(reporte);
+
+                byte[] pdf = documento.GeneratePdf();
+
+                return File(pdf, "application/pdf", "ReporteMarcas.pdf");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         #endregion

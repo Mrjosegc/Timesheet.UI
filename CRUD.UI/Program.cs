@@ -4,6 +4,9 @@ using CRUD.DAPPER;
 using CRUD.DATA.DAPPER;
 using CRUD.LOGICA.NEGOCIO;
 using CRUD.UI.Filters;
+using QuestPDF.Infrastructure;
+
+QuestPDF.Settings.License = LicenseType.Community;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -30,6 +30,8 @@
         BodyReporteTimeSheet: "#BodyReporteTimeSheet",
 
         ContenedorTablaReporte: "#ContenedorTablaReporte",
+        BtnGenerarReporte: "#BtnGenerarReporte",
+        BtnExportarPdf: "#BtnExportarPdf",
     },
 
     iniciar: function () {
@@ -81,6 +83,11 @@
 
         });
 
+        $(jsTimeSheet.controles.BtnExportarPdf).click(function () {
+
+            jsTimeSheet.funciones.ExportarReportePdf();
+
+        });
     },
 
     funciones: {
@@ -643,6 +650,97 @@
             }
 
         },
+
+        ExportarReportePdf: async function () {
+
+            try {
+
+                if ($(jsTimeSheet.controles.TxtIdEmpleado).val() == "0") {
+
+                    Swal.fire({
+                        icon: "warning",
+                        title: "Aviso",
+                        text: "Debe seleccionar un empleado."
+                    });
+
+                    return;
+                }
+
+                if ($(jsTimeSheet.controles.TxtFechaInicio).val() == "" ||
+                    $(jsTimeSheet.controles.TxtFechaFin).val() == "") {
+
+                    Swal.fire({
+                        icon: "warning",
+                        title: "Aviso",
+                        text: "Debe seleccionar un rango de fechas."
+                    });
+
+                    return;
+                }
+
+                let idUsuario = parseInt($("#IdUsuarioTimeSheet").text());
+
+                if ($(jsTimeSheet.controles.TxtIdEmpleado).length > 0) {
+
+                    let idSeleccionado = parseInt($(jsTimeSheet.controles.TxtIdEmpleado).val());
+
+                    if (idSeleccionado > 0) {
+                        idUsuario = idSeleccionado;
+                    }
+                }
+
+                let ObjTimeSheet = {
+
+                    IdUsuario: idUsuario,
+
+                    FechaInicio: $(jsTimeSheet.controles.TxtFechaInicio).val(),
+
+                    FechaFin: $(jsTimeSheet.controles.TxtFechaFin).val()
+
+                };
+
+                let respuesta = await fetch("/TimeSheet/ExportarReportePdf", {
+
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+
+                    body: JSON.stringify(ObjTimeSheet)
+
+                });
+
+                if (!respuesta.ok) {
+
+                    Swal.fire({
+                        icon: "error",
+                        title: "Error",
+                        text: "No fue posible generar el PDF."
+                    });
+
+                    return;
+                }
+
+                const blob = await respuesta.blob();
+
+                const url = window.URL.createObjectURL(blob);
+
+                window.open(url, "_blank");
+
+            }
+            catch (e) {
+
+                Swal.fire({
+                    icon: "error",
+                    title: "Error",
+                    text: e
+                });
+
+            }
+
+        },
+
     }
 
 }
