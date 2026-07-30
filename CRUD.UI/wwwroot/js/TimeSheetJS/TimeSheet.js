@@ -538,14 +538,22 @@
 
                 $("#LblDepartamentoReporte").text(primerRegistro.nombreDepartamento);
 
-                $("#LblPeriodoReporte").text(
-                    `${$(jsTimeSheet.controles.TxtFechaInicio).val()} al ${$(jsTimeSheet.controles.TxtFechaFin).val()}`
-                );
+                // Formatear período
+                let fechaInicio = $(jsTimeSheet.controles.TxtFechaInicio).val().split("-").reverse().join("/");
 
+                let fechaFin = $(jsTimeSheet.controles.TxtFechaFin).val().split("-").reverse().join("/");
+
+                $("#LblPeriodoReporte").text(`${fechaInicio} al ${fechaFin}`);
+
+                // Fecha y hora de generación del reporte
                 $("#LblFechaReporte").text(
                     new Date().toLocaleString("es-CR", {
-                        dateStyle: "short",
-                        timeStyle: "short"
+                        day: "2-digit",
+                        month: "2-digit",
+                        year: "numeric",
+                        hour: "2-digit",
+                        minute: "2-digit",
+                        hour12: true
                     })
                 );
 
