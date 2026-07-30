@@ -81,13 +81,13 @@ namespace CRUD.UI.Controllers
         }
 
         [HttpPost]
-        public Respuesta<List<TimeSheetDTO>> ObtenerReporteTimeSheet()
+        public Respuesta<List<TimeSheetDTO>> ObtenerReporteTimeSheet([FromBody] TimeSheetDTO ObjTimeSheet)
         {
             Respuesta<List<TimeSheetDTO>> respuesta = new Respuesta<List<TimeSheetDTO>>();
 
             try
             {
-                respuesta = _MantTimeSheetBLL.ObtenerReporteTimeSheet();
+                respuesta = _MantTimeSheetBLL.ObtenerReporteTimeSheet(ObjTimeSheet);
             }
             catch (Exception ex)
             {

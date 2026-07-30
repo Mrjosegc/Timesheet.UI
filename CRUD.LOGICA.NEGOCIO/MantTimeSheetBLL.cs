@@ -39,9 +39,9 @@ namespace CRUD.BUSSINESLOGIC.BLL
             return _MantTimeSheetDAPPER.ObtenerEstadoTimeSheet(IdUsuario);
         }
 
-        public Respuesta<List<TimeSheetDTO>> ObtenerReporteTimeSheet()
+        public Respuesta<List<TimeSheetDTO>> ObtenerReporteTimeSheet(TimeSheetDTO ObjTimeSheet)
         {
-            return _MantTimeSheetDAPPER.ObtenerReporteTimeSheet();
+            return _MantTimeSheetDAPPER.ObtenerReporteTimeSheet(ObjTimeSheet);
         }
 
         #endregion

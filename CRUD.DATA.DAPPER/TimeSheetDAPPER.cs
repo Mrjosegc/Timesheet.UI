@@ -192,7 +192,7 @@ namespace CRUD.DATA.DAPPER
 
         }
 
-        public Respuesta<List<TimeSheetDTO>> ObtenerReporteTimeSheet()
+        public Respuesta<List<TimeSheetDTO>> ObtenerReporteTimeSheet(TimeSheetDTO ObjTimeSheet)
         {
             Respuesta<List<TimeSheetDTO>> respuesta = new Respuesta<List<TimeSheetDTO>>();
 
@@ -210,6 +210,27 @@ namespace CRUD.DATA.DAPPER
                     {
                         command.CommandType = CommandType.StoredProcedure;
 
+                        command.Parameters.Add(new SqlParameter("@pIdUsuario", SqlDbType.Int)
+                        {
+                            Value = ObjTimeSheet.IdUsuario == 0
+                                ? DBNull.Value
+                                : ObjTimeSheet.IdUsuario
+                        });
+
+                        command.Parameters.Add(new SqlParameter("@pFechaInicio", SqlDbType.Date)
+                        {
+                            Value = ObjTimeSheet.FechaInicio == null
+                                ? DBNull.Value
+                                : ObjTimeSheet.FechaInicio
+                        });
+
+                        command.Parameters.Add(new SqlParameter("@pFechaFin", SqlDbType.Date)
+                        {
+                            Value = ObjTimeSheet.FechaFin == null
+                                ? DBNull.Value
+                                : ObjTimeSheet.FechaFin
+                        });
+
                         using (SqlDataReader dr = command.ExecuteReader())
                         {
                             while (dr.Read())
@@ -223,6 +244,8 @@ namespace CRUD.DATA.DAPPER
                                 item.HoraEntrada = dr["HoraEntrada"] == DBNull.Value ? null : Convert.ToDateTime(dr["HoraEntrada"]);
                                 item.HoraSalida = dr["HoraSalida"] == DBNull.Value ? null : Convert.ToDateTime(dr["HoraSalida"]);
                                 item.MinutosTrabajados = dr["MinutosTrabajados"] == DBNull.Value ? null : Convert.ToInt32(dr["MinutosTrabajados"]);
+                                item.NombreDepartamento = dr["NombreDepartamento"].ToString();
+                                item.MinutosExtra = dr["MinutosExtra"] == DBNull.Value ? null : Convert.ToInt32(dr["MinutosExtra"]);
 
                                 lista.Add(item);
                             }

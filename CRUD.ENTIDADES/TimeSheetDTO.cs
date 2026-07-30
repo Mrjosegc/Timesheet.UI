@@ -21,6 +21,18 @@ namespace CRUD.ENTIDADES
         //==========================================================
         public string NombreCompleto { get; set; }
 
+        public string NombreDepartamento { get; set; }
+
         public int? MinutosTrabajados { get; set; }
+
+        public int? MinutosExtra { get; set; }
+
+        //==========================================================
+        // FILTROS PARA REPORTES
+        //==========================================================
+
+        public DateTime? FechaInicio { get; set; }
+
+        public DateTime? FechaFin { get; set; }
     }
 }

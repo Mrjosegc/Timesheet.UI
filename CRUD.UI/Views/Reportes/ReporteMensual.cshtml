@@ -142,6 +142,39 @@
 
             <div id="ContenedorTablaReporte" style="display:none;">
 
+                <!-- Encabezado del Reporte -->
+                <div class="container-fluid mb-3">
+
+                    <div class="row">
+
+                        <div class="col-md-6 pe-4">
+                            <strong>Empleado:</strong>
+                            <span id="LblEmpleadoReporte"></span>
+                        </div>
+
+                        <div class="col-md-6 ps-4">
+                            <strong>Departamento:</strong>
+                            <span id="LblDepartamentoReporte"></span>
+                        </div>
+
+                    </div>
+
+                    <div class="row mt-2">
+
+                        <div class="col-md-6 pe-4">
+                            <strong>Período:</strong>
+                            <span id="LblPeriodoReporte"></span>
+                        </div>
+
+                        <div class="col-md-6 ps-4">
+                            <strong>Fecha del reporte:</strong>
+                            <span id="LblFechaReporte"></span>
+                        </div>
+
+                    </div>
+
+                </div>
+
                 <div class="table-responsive">
 
                     <table id="TbReporteTimeSheet"
@@ -151,21 +184,18 @@
 
                             <tr>
 
-                                <th>Empleado</th>
-                                <th>Departamento</th>
                                 <th>Fecha</th>
                                 <th>Entrada</th>
                                 <th>Salida</th>
                                 <th>Horas Trabajadas</th>
                                 <th>Horas Extra</th>
                                 <th>Justificación</th>
-                                <th>Estado</th>
 
                             </tr>
 
                         </thead>
 
-                        <tbody>
+                        <tbody id="BodyReporteTimeSheet">
                         </tbody>
 
                     </table>
@@ -206,8 +236,11 @@
 
             <div class="modal-body">
 
-                <p class="text-muted mb-0">
-                    <div class="table-responsive">
+                <p class="text-muted">
+                    Seleccione un empleado para generar el reporte.
+                </p>
+
+                <div class="table-responsive">
 
                         <table id="TbBuscarEmpleado"
                                class="table table-bordered table-hover w-100">
@@ -237,10 +270,12 @@
 
                                         <td class="text-center">
 
-                                            <button class="btn btn-primary btn-sm">
-                                                <i class="fas fa-check"></i>
-                                                Seleccionar
-                                            </button>
+                                        <button class="btn btn-primary btn-sm btnSeleccionarEmpleado"
+                                                data-id="@usuario.IdUsuario"
+                                                data-nombre="@usuario.NombreCompleto">
+                                            <i class="fas fa-check"></i>
+                                            Seleccionar
+                                        </button>
 
                                         </td>
 

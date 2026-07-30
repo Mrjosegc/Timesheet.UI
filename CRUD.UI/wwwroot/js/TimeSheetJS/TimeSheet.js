@@ -18,7 +18,18 @@
         EstadoEntrada: "#EstadoEntrada",
         EstadoSalida: "#EstadoSalida",
 
-        btnBuscarEmpleado: "#btnBuscarEmpleado"
+        btnBuscarEmpleado: "#btnBuscarEmpleado",
+        TxtIdEmpleado: "#txtIdEmpleado",
+        TxtEmpleado: "#txtEmpleado",
+
+        BtnGenerarReporte: "#btnGenerarReporte",
+
+        TxtFechaInicio: "#txtFechaInicio",
+        TxtFechaFin: "#txtFechaFin",
+
+        BodyReporteTimeSheet: "#BodyReporteTimeSheet",
+
+        ContenedorTablaReporte: "#ContenedorTablaReporte",
     },
 
     iniciar: function () {
@@ -49,6 +60,24 @@
         $(jsTimeSheet.controles.btnBuscarEmpleado).click(function () {
 
             jsTimeSheet.funciones.AbrirModalBuscarEmpleado();
+
+        });
+
+        $(document).on("click", ".btnSeleccionarEmpleado", function () {
+
+            let idEmpleado = $(this).data("id");
+            let nombreEmpleado = $(this).data("nombre");
+
+            $(jsTimeSheet.controles.TxtIdEmpleado).val(idEmpleado);
+            $(jsTimeSheet.controles.TxtEmpleado).val(nombreEmpleado);
+
+            $("#modalBuscarEmpleado").modal("hide");
+
+        });
+
+        $(jsTimeSheet.controles.BtnGenerarReporte).click(function () {
+            console.log("Btn funciona")
+            jsTimeSheet.funciones.GenerarReporte();
 
         });
 
@@ -407,6 +436,203 @@
         AbrirModalBuscarEmpleado: function () {
 
             $("#modalBuscarEmpleado").modal("show");
+
+        },
+
+        GenerarReporte: async function () {
+
+            try {
+
+                if ($(jsTimeSheet.controles.TxtIdEmpleado).val() == "0") {
+
+                    Swal.fire({
+                        icon: "warning",
+                        title: "Aviso",
+                        text: "Debe seleccionar un empleado."
+                    });
+
+                    return;
+                }
+
+                if ($(jsTimeSheet.controles.TxtFechaInicio).val() == "" ||
+                    $(jsTimeSheet.controles.TxtFechaFin).val() == "") {
+
+                    Swal.fire({
+                        icon: "warning",
+                        title: "Aviso",
+                        text: "Debe seleccionar un rango de fechas."
+                    });
+
+                    return;
+                }
+
+                let idUsuario = parseInt($("#IdUsuarioTimeSheet").text());
+
+                if ($(jsTimeSheet.controles.TxtIdEmpleado).length > 0) {
+
+                    let idSeleccionado = parseInt($(jsTimeSheet.controles.TxtIdEmpleado).val());
+
+                    if (idSeleccionado > 0) {
+                        idUsuario = idSeleccionado;
+                    }
+
+                }
+
+                let ObjTimeSheet = {
+
+                    IdUsuario: idUsuario,
+
+                    FechaInicio: $(jsTimeSheet.controles.TxtFechaInicio).val(),
+
+                    FechaFin: $(jsTimeSheet.controles.TxtFechaFin).val()
+
+                };
+
+                let respuesta = await fetch("/TimeSheet/ObtenerReporteTimeSheet", {
+
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+
+                    body: JSON.stringify(ObjTimeSheet)
+
+                });
+
+                let resultado = await respuesta.json();
+
+                if (!resultado.ok) {
+
+                    Swal.fire({
+                        icon: "error",
+                        title: "Error",
+                        text: resultado.mensaje
+                    });
+
+                    return;
+
+                }
+
+                $(jsTimeSheet.controles.BodyReporteTimeSheet).empty();
+
+                if (resultado.valorRetorno.length == 0) {
+
+                    $(jsTimeSheet.controles.ContenedorTablaReporte).hide();
+
+                    Swal.fire({
+                        icon: "info",
+                        title: "Sin resultados",
+                        text: "No existen registros para la búsqueda realizada."
+                    });
+
+                    return;
+                }
+                //==================================================
+                // ENCABEZADO DEL REPORTE
+                //==================================================
+
+                let primerRegistro = resultado.valorRetorno[0];
+
+                $("#LblEmpleadoReporte").text(primerRegistro.nombreCompleto);
+
+                $("#LblDepartamentoReporte").text(primerRegistro.nombreDepartamento);
+
+                $("#LblPeriodoReporte").text(
+                    `${$(jsTimeSheet.controles.TxtFechaInicio).val()} al ${$(jsTimeSheet.controles.TxtFechaFin).val()}`
+                );
+
+                $("#LblFechaReporte").text(
+                    new Date().toLocaleString("es-CR", {
+                        dateStyle: "short",
+                        timeStyle: "short"
+                    })
+                );
+
+                resultado.valorRetorno.forEach(function (item) {
+
+                    let fecha = new Date(item.fecha).toLocaleDateString("es-CR");
+
+                    let entrada = "";
+
+                    if (item.horaEntrada != null) {
+
+                        entrada = new Date(item.horaEntrada).toLocaleTimeString("es-CR", {
+                            hour: "2-digit",
+                            minute: "2-digit",
+                            hour12: true
+                        });
+
+                    }
+
+                    let salida = "";
+
+                    if (item.horaSalida != null) {
+
+                        salida = new Date(item.horaSalida).toLocaleTimeString("es-CR", {
+                            hour: "2-digit",
+                            minute: "2-digit",
+                            hour12: true
+                        });
+
+                    }
+
+                    let horasTrabajadas = "";
+
+                    if (item.minutosTrabajados != null) {
+
+                        let horas = Math.floor(item.minutosTrabajados / 60);
+                        let minutos = item.minutosTrabajados % 60;
+
+                        horasTrabajadas = `${horas}h ${minutos}m`;
+
+                    }
+
+                    let horasExtra = "";
+
+                    if (item.minutosExtra != null) {
+
+                        let horas = Math.floor(item.minutosExtra / 60);
+                        let minutos = item.minutosExtra % 60;
+
+                        horasExtra = `${horas}h ${minutos}m`;
+
+                    }
+
+                    let fila = `
+                    <tr>
+
+                        <td>${fecha}</td>
+
+                        <td>${entrada}</td>
+
+                        <td>${salida}</td>
+
+                        <td>${horasTrabajadas}</td>
+
+                        <td>${horasExtra}</td>
+
+                        <td>-</td>
+
+                    </tr>
+            `;
+                    $("#MensajeInicialReporte").hide();
+                    $(jsTimeSheet.controles.BodyReporteTimeSheet).append(fila);
+
+                });
+
+                $(jsTimeSheet.controles.ContenedorTablaReporte).show();
+
+            }
+            catch (e) {
+
+                Swal.fire({
+                    icon: "error",
+                    title: "Error",
+                    text: e
+                });
+
+            }
 
         },
     }
