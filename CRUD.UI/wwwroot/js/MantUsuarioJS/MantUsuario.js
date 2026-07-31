@@ -22,6 +22,7 @@ jsMantUsuario = {
         InputNombre: '#InputNombre',
         InputApellido1: '#InputApellido1',
         InputApellido2: '#InputApellido2',
+        InputCedula: '#InputCedula',
         InputFechaNac: '#InputFechaNac',
         InputGenero: '#InputGenero',
         InputTelefono: '#InputTelefono',
@@ -40,6 +41,7 @@ jsMantUsuario = {
         ModalInputNombre: '#ModalInputNombre',
         ModalInputApellido1: '#ModalInputApellido1',
         ModalInputApellido2: '#ModalInputApellido2',
+        ModalInputCedula: '#ModalInputCedula',
         ModalInputFechaNac: '#ModalInputFechaNac',
         ModalInputGenero: '#ModalInputGenero',
         ModalInputTelefono: '#ModalInputTelefono',
@@ -81,13 +83,14 @@ jsMantUsuario = {
                     Nombre: $(jsMantUsuario.controles.InputNombre).val(),
                     Apellido1: $(jsMantUsuario.controles.InputApellido1).val(),
                     Apellido2: $(jsMantUsuario.controles.InputApellido2).val(),
+                    Cedula: $(jsMantUsuario.controles.InputCedula).val(),
                     FechaNac: $(jsMantUsuario.controles.InputFechaNac).val(),
                     Genero: $(jsMantUsuario.controles.InputGenero).val(),
                     Telefono: $(jsMantUsuario.controles.InputTelefono).val(),
                     Direccion: $(jsMantUsuario.controles.InputDireccion).val(),
                     IdDepartamento: $(jsMantUsuario.controles.InputIdDepartamento).val()
                 }
-                if (ObjUsr.Correo != "" && ObjUsr.Contrasena !== "" && ObjUsr.IdRol != "0" && ObjUsr.Nombre !== "" && ObjUsr.Apellido1 !== "" && ObjUsr.Apellido2 !== "" && ObjUsr.FechaNac !== "" && ObjUsr.Genero !== "0" && ObjUsr.Telefono !== "" && ObjUsr.Direccion !== "" && ObjUsr.IdDepartamento !== "") {
+                if (ObjUsr.Correo != "" && ObjUsr.Contrasena !== "" && ObjUsr.IdRol != "0" && ObjUsr.Nombre !== "" && ObjUsr.Apellido1 !== "" && ObjUsr.Apellido2 !== "" && ObjUsr.Cedula !== "" && ObjUsr.FechaNac !== "" && ObjUsr.Genero !== "0" && ObjUsr.Telefono !== "" && ObjUsr.Direccion !== "" && ObjUsr.IdDepartamento !== "") {
                     fetch('../Usuario/RegistrarUsuarios', {
                         method: 'POST',
                         headers: {
@@ -107,7 +110,7 @@ jsMantUsuario = {
                                 });
                                 setTimeout(() => {
                                     window.location.reload();
-                                }, 10000)
+                                }, 4000)
                             } else {
                                 Swal.fire({
                                     title: "Error",
@@ -159,6 +162,7 @@ jsMantUsuario = {
                             $(jsMantUsuario.controles.ModalInputNombre).val(resultado.valorRetorno.nombre)
                             $(jsMantUsuario.controles.ModalInputApellido1).val(resultado.valorRetorno.apellido1)
                             $(jsMantUsuario.controles.ModalInputApellido2).val(resultado.valorRetorno.apellido2)
+                            $(jsMantUsuario.controles.ModalInputCedula).val(resultado.valorRetorno.cedula)
                             $(jsMantUsuario.controles.ModalInputFechaNac).val(resultado.valorRetorno.fechaNac.split('T')[0])
                             //$(jsMantUsuario.controles.ModalInputGenero).val(resultado.valorRetorno.genero)
                             $(jsMantUsuario.controles.ModalInputTelefono).val(resultado.valorRetorno.telefono)
@@ -206,6 +210,7 @@ jsMantUsuario = {
                     Nombre: $(jsMantUsuario.controles.ModalInputNombre).val(),
                     Apellido1: $(jsMantUsuario.controles.ModalInputApellido1).val(),
                     Apellido2: $(jsMantUsuario.controles.ModalInputApellido2).val(),
+                    Cedula: $(jsMantUsuario.controles.ModalInputCedula).val(),
                     FechaNac: $(jsMantUsuario.controles.ModalInputFechaNac).val(),
                     Genero: $(jsMantUsuario.controles.ModalInputGenero).val(),
                     Telefono: $(jsMantUsuario.controles.ModalInputTelefono).val(),
@@ -214,7 +219,8 @@ jsMantUsuario = {
                 };
 
                 if (ObjUsuario.Correo !== "" && ObjUsuario.Contrasena !== "" && ObjUsuario.IdRol !== "0" && ObjUsuario.Nombre !== "" && ObjUsuario.Apellido1 !== "" &&
-                    ObjUsuario.Apellido2 !== "" && ObjUsuario.FechaNac !== "" && ObjUsuario.Genero !== "0" && ObjUsuario.Telefono !== "" && ObjUsuario.Direccion !== "" && ObjUsuario.Departamento !== "") {
+                    ObjUsuario.Apellido2 !== "" && ObjUsuario.Cedula !== "" && ObjUsuario.FechaNac !== "" && ObjUsuario.Genero !== "0" && ObjUsuario.Telefono !== "" &&
+                    ObjUsuario.Direccion !== "" && ObjUsuario.Departamento !== "") {
 
                     Swal.fire({
                         title: "Estás seguro que quieres editar este usuario?",

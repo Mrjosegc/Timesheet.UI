@@ -145,11 +145,13 @@ namespace CRUD.DATA.DAPPER
                         command.Parameters.Add(new SqlParameter("@pNombre", SqlDbType.NVarChar, 50) { Value = ObjUsuario.Nombre });
                         command.Parameters.Add(new SqlParameter("@pApellido1", SqlDbType.NVarChar, 50) { Value = ObjUsuario.Apellido1 });
                         command.Parameters.Add(new SqlParameter("@pApellido2", SqlDbType.NVarChar, 50) { Value = ObjUsuario.Apellido2 });
+                        command.Parameters.Add(new SqlParameter("@pCedula", SqlDbType.NVarChar, 20) { Value = ObjUsuario.Cedula });
                         command.Parameters.Add(new SqlParameter("@pFechaNac", SqlDbType.Date) { Value = ObjUsuario.FechaNac });
                         command.Parameters.Add(new SqlParameter("@pGenero", SqlDbType.NVarChar, 50) { Value = ObjUsuario.Genero });
                         command.Parameters.Add(new SqlParameter("@pTelefono", SqlDbType.NVarChar, 20) { Value = ObjUsuario.Telefono });
                         command.Parameters.Add(new SqlParameter("@pDireccion", SqlDbType.NVarChar, 400) { Value = ObjUsuario.Direccion });
                         command.Parameters.Add(new SqlParameter("@pIdDepartamento", SqlDbType.Int) { Value = ObjUsuario.IdDepartamento });
+                        command.Parameters.Add(new SqlParameter("@pContrasena", SqlDbType.NVarChar, 100) { Value = ObjUsuario.Contrasena });
 
                         int FilasAfectadas = command.ExecuteNonQuery();
 
@@ -223,6 +225,7 @@ namespace CRUD.DATA.DAPPER
                                     NombreDepartamento = (string)reader["NombreDepartamento"],
                                     NombreRol = (string)reader["NombreRol"],
                                     Correo = (string)reader["Correo"],
+                                    Cedula = (string)reader["Cedula"],
                                     Telefono = (string)reader["Telefono"],
                                 };
 
@@ -289,6 +292,7 @@ namespace CRUD.DATA.DAPPER
                                     Nombre = (string)reader["Nombre"],
                                     Apellido1 = (string)reader["Apellido1"],
                                     Apellido2 = (string)reader["Apellido2"],
+                                    Cedula = (string)reader["Cedula"],
                                     FechaNac = (DateTime)reader["FechaNacimiento"],
                                     Genero = (string)reader["Genero"],
                                     IdRol = (int)reader["IdRol"],
@@ -353,6 +357,7 @@ namespace CRUD.DATA.DAPPER
                         command.Parameters.Add(new SqlParameter("@pNombre", SqlDbType.NVarChar, 50) { Value = ObjUsuario.Nombre });
                         command.Parameters.Add(new SqlParameter("@pApellido1", SqlDbType.NVarChar, 50) { Value = ObjUsuario.Apellido1 });
                         command.Parameters.Add(new SqlParameter("@pApellido2", SqlDbType.NVarChar, 50) { Value = ObjUsuario.Apellido2 });
+                        command.Parameters.Add(new SqlParameter("@pCedula", SqlDbType.NVarChar, 20) { Value = ObjUsuario.Cedula });
                         command.Parameters.Add(new SqlParameter("@pFechaNac", SqlDbType.Date) { Value = ObjUsuario.FechaNac });
                         command.Parameters.Add(new SqlParameter("@pGenero", SqlDbType.NVarChar, 50) { Value = ObjUsuario.Genero });
                         command.Parameters.Add(new SqlParameter("@pTelefono", SqlDbType.NVarChar, 20) { Value = ObjUsuario.Telefono });
