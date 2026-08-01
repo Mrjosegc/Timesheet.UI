@@ -29,6 +29,42 @@ body {
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
   text-align: start;
 }
+
+.TarjetaConstruccion {
+    background: linear-gradient(135deg,#4e73df,#36b9cc,#1cc88a);
+    color: white;
+    border: none;
+    overflow: hidden;
+}
+
+    .TarjetaConstruccion .card-header {
+        background: transparent;
+        border-bottom: none;
+    }
+
+        .TarjetaConstruccion .card-header h6 {
+            color: white !important;
+        }
+
+    .TarjetaConstruccion .card-body {
+        text-align: center;
+        padding: 60px 30px;
+    }
+
+    .TarjetaConstruccion .icono-construccion {
+        font-size: 70px;
+        color: #f6c23e;
+        margin-bottom: 20px;
+    }
+
+    .TarjetaConstruccion h1 {
+        color: white;
+        font-weight: bold;
+    }
+
+    .TarjetaConstruccion p {
+        color: rgba(255,255,255,.9);
+    }
 /*.bg-gradient-primary {
     background: linear-gradient( 120deg, #009ffd, #00c6a7, #1de9b6, #43e97b, #00c6fb, #005bea ) !important;
     background-size: 300% 300%;
