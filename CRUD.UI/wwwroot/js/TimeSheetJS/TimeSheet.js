@@ -652,6 +652,20 @@
 
                     }
 
+                    let estado = "";
+
+                    if (item.tardia) {
+                        estado += `<span class="badge bg-warning text-dark me-1">Tardía</span>`;
+                    }
+
+                    if (item.horaSalida == null) {
+                        estado += `<span class="badge bg-warning text-dark me-1">Sin salida</span>`;
+                    }
+
+                    if (!item.tardia && item.horaSalida != null) {
+                        estado += `<span class="badge bg-success">Completo</span>`;
+                    }
+
                     let fila = `
                     <tr>
 
@@ -665,7 +679,7 @@
 
                         <td>${horasExtra}</td>
 
-                        <td>-</td>
+                        <td>${estado}</td>
 
                     </tr>
             `;

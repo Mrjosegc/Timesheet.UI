@@ -15,5 +15,9 @@ namespace CRUD.ENTIDADES
         public bool EstadoRol { get; set; }
 
         public DateTime FechaCreacionRol { get; set; }
+
+        public TimeSpan HoraEntrada { get; set; }
+
+        public TimeSpan HoraSalida { get; set; }
     }
 }

@@ -246,6 +246,7 @@ namespace CRUD.DATA.DAPPER
                                 item.MinutosTrabajados = dr["MinutosTrabajados"] == DBNull.Value ? null : Convert.ToInt32(dr["MinutosTrabajados"]);
                                 item.NombreDepartamento = dr["NombreDepartamento"].ToString();
                                 item.MinutosExtra = dr["MinutosExtra"] == DBNull.Value ? null : Convert.ToInt32(dr["MinutosExtra"]);
+                                item.Tardia = Convert.ToBoolean(dr["Tardia"]);
 
                                 lista.Add(item);
                             }

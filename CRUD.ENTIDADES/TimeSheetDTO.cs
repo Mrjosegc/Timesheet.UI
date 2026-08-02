@@ -27,6 +27,8 @@ namespace CRUD.ENTIDADES
 
         public int? MinutosExtra { get; set; }
 
+        public bool Tardia { get; set; }
+
         //==========================================================
         // FILTROS PARA REPORTES
         //==========================================================

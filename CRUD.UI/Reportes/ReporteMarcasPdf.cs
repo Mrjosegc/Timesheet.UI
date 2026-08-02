@@ -64,7 +64,7 @@ namespace CRUD.UI.Reportes
                             columns.RelativeColumn(2); // Salida
                             columns.RelativeColumn(2); // Horas Trabajadas
                             columns.RelativeColumn(2); // Horas Extra
-                            columns.RelativeColumn(3); // Justificación
+                            columns.RelativeColumn(3); // Estado
                         });
 
                         table.Header(header =>
@@ -74,7 +74,7 @@ namespace CRUD.UI.Reportes
                             header.Cell().BorderBottom(0.5f).Padding(5).AlignCenter().Text("Salida").Bold();
                             header.Cell().BorderBottom(0.5f).Padding(5).AlignCenter().Text("Horas Trabajadas").Bold();
                             header.Cell().BorderBottom(0.5f).Padding(5).AlignCenter().Text("Horas Extra").Bold();
-                            header.Cell().BorderBottom(0.5f).Padding(5).AlignCenter().Text("Justificación").Bold();
+                            header.Cell().BorderBottom(0.5f).Padding(5).AlignCenter().Text("Estado").Bold();
                         });
                         foreach (var marca in _reporte.Marcas)
                         {

@@ -89,7 +89,9 @@ namespace CRUD.DATA.DAPPER
                                     NombreRol = (string)reader["NombreRol"],
                                     DescripcionRol = (string)reader["DescripcionRol"],
                                     EstadoRol = (bool)reader["EstadoRol"],
-                                    FechaCreacionRol = (DateTime)reader["FechaCreacionRol"]
+                                    FechaCreacionRol = (DateTime)reader["FechaCreacionRol"],
+                                    HoraEntrada = (TimeSpan)reader["HoraEntrada"],
+                                    HoraSalida = (TimeSpan)reader["HoraSalida"]
 
                                 };
 
@@ -575,6 +577,8 @@ namespace CRUD.DATA.DAPPER
  
                         command.Parameters.Add(new SqlParameter("@pNombreRol", SqlDbType.NVarChar, 50) { Value = ObjRol.NombreRol });
                         command.Parameters.Add(new SqlParameter("@pDescripcionRol", SqlDbType.NVarChar, 50) { Value = ObjRol.DescripcionRol });
+                        command.Parameters.Add(new SqlParameter("@pHoraEntrada", SqlDbType.Time) { Value = ObjRol.HoraEntrada });
+                        command.Parameters.Add(new SqlParameter("@pHoraSalida", SqlDbType.Time) { Value = ObjRol.HoraSalida });
 
                         int FilasAfectadas = command.ExecuteNonQuery();
 
@@ -688,6 +692,8 @@ namespace CRUD.DATA.DAPPER
                         command.Parameters.Add(new SqlParameter("@pNombreRol", SqlDbType.VarChar, 100) { Value = ObjRol.NombreRol });
                         command.Parameters.Add(new SqlParameter("@pDescripcionRol", SqlDbType.VarChar, 255) { Value = ObjRol.DescripcionRol });
                         command.Parameters.Add(new SqlParameter("@pEstadoRol", SqlDbType.Bit) { Value = ObjRol.EstadoRol });
+                        command.Parameters.Add(new SqlParameter("@pHoraEntrada", SqlDbType.Time) { Value = ObjRol.HoraEntrada });
+                        command.Parameters.Add(new SqlParameter("@pHoraSalida", SqlDbType.Time) { Value = ObjRol.HoraSalida });
 
                         int FilasAfectadas = command.ExecuteNonQuery();
 
@@ -758,7 +764,9 @@ namespace CRUD.DATA.DAPPER
                                     NombreRol = (string)reader["NombreRol"],
                                     DescripcionRol = (string)reader["DescripcionRol"],
                                     EstadoRol = (bool)reader["EstadoRol"],
-                                    FechaCreacionRol = (DateTime)reader["FechaCreacionRol"]
+                                    FechaCreacionRol = (DateTime)reader["FechaCreacionRol"],
+                                    HoraEntrada = (TimeSpan)reader["HoraEntrada"],
+                                    HoraSalida = (TimeSpan)reader["HoraSalida"],
 
                                 };
 

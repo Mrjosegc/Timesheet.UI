@@ -30,6 +30,8 @@ jsMantRoles = {
         ModalInputNombreRol: '#ModalInputNombreRol',
         ModalInputDescripcionRol: '#ModalInputDescripcionRol',
         ModalSelectEstadoRol: '#ModalSelectEstadoRol',
+        ModalInputHoraEntrada: '#ModalInputHoraEntrada',
+        ModalInputHoraSalida: '#ModalInputHoraSalida',
     },
 
 
@@ -146,6 +148,8 @@ jsMantRoles = {
                             $(jsMantRoles.controles.ModalInputIdRol).val(resultado.valorRetorno.idRol)
                             $(jsMantRoles.controles.ModalInputNombreRol).val(resultado.valorRetorno.nombreRol)
                             $(jsMantRoles.controles.ModalInputDescripcionRol).val(resultado.valorRetorno.descripcionRol)
+                            $(jsMantRoles.controles.ModalInputHoraEntrada).val(resultado.valorRetorno.horaEntrada)
+                            $(jsMantRoles.controles.ModalInputHoraSalida).val(resultado.valorRetorno.horaSalida)
 
                         } else {
 
@@ -230,7 +234,9 @@ jsMantRoles = {
                     IdRol: $(jsMantRoles.controles.ModalInputIdRol).val(),
                     NombreRol: $(jsMantRoles.controles.ModalInputNombreRol).val(),
                     DescripcionRol: $(jsMantRoles.controles.ModalInputDescripcionRol).val(),
-                    EstadoRol: $(jsMantRoles.controles.ModalSelectEstadoRol).val() === "true"
+                    EstadoRol: $(jsMantRoles.controles.ModalSelectEstadoRol).val() === "true",
+                    HoraEntrada: $(jsMantRoles.controles.ModalInputHoraEntrada).val(),
+                    HoraSalida: $(jsMantRoles.controles.ModalInputHoraSalida).val(),
                 };
 
                 if (ObjRol.IdRol !== "0" && ObjRol.NombreRol !== "0" && ObjRol.DescripcionRol !== "") {
@@ -320,6 +326,8 @@ jsMantRoles = {
                             $(jsMantRoles.controles.ModalInputNombreRol).val(resultado.valorRetorno.nombreRol)
                             $(jsMantRoles.controles.ModalInputDescripcionRol).val(resultado.valorRetorno.descripcionRol)
                             $(jsMantRoles.controles.ModalSelectEstadoRol).val(resultado.valorRetorno.estadoRol.toString());
+                            $(jsMantRoles.controles.ModalInputHoraEntrada).val(resultado.valorRetorno.horaEntrada);
+                            $(jsMantRoles.controles.ModalInputHoraSalida).val(resultado.valorRetorno.horaSalida);
                         } else {
                             Swal.fire({
                                 title: "Advertencia",

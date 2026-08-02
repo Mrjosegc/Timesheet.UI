@@ -23,11 +23,11 @@
     <div class="tab-content" id="nav-tabContent">
         <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
 
-            <div class="row ContenidoTab">
+            <div class="row ContenidoTab mt-0">
 
                 <h4 class="LineaTitulo">Crear nuevo puesto</h4>
 
-                <div class="col-4">
+                <div class="col-3">
                     <label class="form-label">Nombre del Puesto:</label>
                     <div class="input-group">
                         <span class="input-group-text"><i class="fa-solid fa-address-card"></i></span>
@@ -35,11 +35,23 @@
                     </div>
                 </div>
 
-                <div class="col-4">
+                <div class="col-3">
                     <label class="form-label">Descripción del Puesto:</label>
                     <div class="input-group">
                         <span class="input-group-text"><i class="fa-solid fa-address-card"></i></span>
                         <input type="text" class="form-control" id="InputDescripcionRol" placeholder="Ingrese Descripción corta" />
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <label class="form-label">Hora entrada:</label>
+                    <div class="input-group">
+                        <input type="time" class="form-control" id="InputHoraEntrada" placeholder="" />
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <label class="form-label">Hora salida:</label>
+                    <div class="input-group">
+                        <input type="time" class="form-control" id="InputHoraSalida" placeholder="" />
                     </div>
                 </div>
             </div>
@@ -50,13 +62,15 @@
             </div>
 
                 <!--Inicio Tabla Roles-->
-                <h4 class="LineaTitulo mt-4">Puestos actuales</h4>
+                <h4 class="LineaTitulo mt-2">Puestos actuales</h4>
                 <table id="TbRoles" class="table table-light table-hover mt-1 mb-5">
                     <thead>
                         <tr>
                             <th>Id</th>
                             <th>Puesto</th>
                             <th>Descripción</th>
+                            <th>Entrada</th>
+                            <th>Salida</th>
                             <th>Estado</th>
                             <th>Fecha de creación</th>
                         </tr>
@@ -70,6 +84,8 @@
                                 <td>@usr.IdRol</td>
                                 <td>@usr.NombreRol</td>
                                 <td>@usr.DescripcionRol</td>
+                                <td>@usr.HoraEntrada</td>
+                                <td>@usr.HoraSalida</td>
                                 <td>
                                     @if (usr.EstadoRol)
                                     {
@@ -122,7 +138,7 @@
                             <hr class="mt-0 mb-3">
                         </div>
 
-                        <div class="col-4">
+                        <div class="col-3">
                             <label class="form-label">Puesto:</label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="fa-solid fa-arrows-down-to-people"></i></span>
@@ -130,14 +146,29 @@
                             </div>
                         </div>
 
-                        <div class="col-4">
+                        <div class="col-3">
                             <label class="form-label">Descripción:</label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="fa-solid fa-align-left"></i></span>
                                 <input class="form-control" id="ModalInputDescripcionRol" type="text" placeholder="Ingrese Descripción corta" />
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-2">
+                            <label class="form-label">Entrada:</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fa-solid fa-arrows-down-to-people"></i></span>
+                                <input class="form-control" id="ModalInputHoraEntrada" type="time" placeholder="" />
+                            </div>
+                        </div>
+
+                        <div class="col-2">
+                            <label class="form-label">Salida:</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fa-solid fa-align-left"></i></span>
+                                <input class="form-control" id="ModalInputHoraSalida" type="time" placeholder="" />
+                            </div>
+                        </div>
+                        <div class="col-2">
                             <label class="form-label">Estado:</label>
                             <div class="input-group">
                                 <span class="input-group-text">
