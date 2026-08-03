@@ -147,6 +147,47 @@ namespace CRUD.UI.Controllers
             }
         }
 
+        [HttpPost]
+        public IActionResult ExportarReporteTardiasPdf([FromBody] TimeSheetDTO ObjTimeSheet)
+        {
+            try
+            {
+                var respuesta = _MantTimeSheetBLL.ObtenerReporteTimeSheet(ObjTimeSheet);
+
+                if (!respuesta.Ok)
+                {
+                    return BadRequest(respuesta.Mensaje);
+                }
+
+                if (respuesta.ValorRetorno == null || respuesta.ValorRetorno.Count == 0)
+                {
+                    return BadRequest("No existen datos para generar el reporte.");
+                }
+
+                var primerRegistro = respuesta.ValorRetorno.First();
+
+                var reporte = new ReporteMarcasPdfDTO
+                {
+                    NombreEmpleado = primerRegistro.NombreCompleto,
+                    NombreDepartamento = primerRegistro.NombreDepartamento,
+                    Cedula = primerRegistro.Cedula,
+                    Periodo = $"{ObjTimeSheet.FechaInicio:dd/MM/yyyy} al {ObjTimeSheet.FechaFin:dd/MM/yyyy}",
+                    FechaReporte = DateTime.Now,
+                    Marcas = respuesta.ValorRetorno
+                };
+
+                var documento = new ReporteTardiasPdf(reporte);
+
+                byte[] pdf = documento.GeneratePdf();
+
+                return File(pdf, "application/pdf", "ReporteTardias.pdf");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         #endregion
     }
 }
