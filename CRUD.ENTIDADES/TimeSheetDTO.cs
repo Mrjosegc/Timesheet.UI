@@ -16,10 +16,14 @@ namespace CRUD.ENTIDADES
 
         public DateTime? HoraSalida { get; set; }
 
+        public TimeSpan HoraEntradaPuesto { get; set; }
+
         //==========================================================
         // PROPIEDADES PARA REPORTES
         //==========================================================
         public string NombreCompleto { get; set; }
+
+        public string Cedula { get; set; }
 
         public string NombreDepartamento { get; set; }
 
@@ -36,5 +40,6 @@ namespace CRUD.ENTIDADES
         public DateTime? FechaInicio { get; set; }
 
         public DateTime? FechaFin { get; set; }
+
     }
 }

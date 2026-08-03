@@ -8,6 +8,8 @@ namespace CRUD.ENTIDADES
     {
         public string NombreEmpleado { get; set; } = string.Empty;
 
+        public string Cedula { get; set; }
+
         public string NombreDepartamento { get; set; } = string.Empty;
 
         public string Periodo { get; set; } = string.Empty;

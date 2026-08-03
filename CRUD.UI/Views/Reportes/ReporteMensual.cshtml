@@ -35,6 +35,33 @@
             {
                 <div class="row">
 
+                    <div class="col-md-3 mb-3">
+
+                        <label>Tipo de reporte</label>
+
+                        <select id="SelectTipoReporte"
+                                class="form-control">
+
+                            <option value="0">
+                                Seleccione una opción
+                            </option>
+
+                            <option value="Marcas">
+                                Reporte de Marcas
+                            </option>
+
+                            <option value="Ausencias">
+                                Reporte de Ausencias
+                            </option>
+
+                            <option value="Tardias">
+                                Reporte de Tardías
+                            </option>
+
+                        </select>
+
+                    </div>
+
                     <div class="col-3 md-4 mb-3">
 
                         <label>Departamento</label>
@@ -146,91 +173,203 @@
     <div class="card shadow">
 
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">
-                Reporte de Marcas
+            <h6 id="TituloReporte" class="m-0 font-weight-bold text-primary">
+                Seleccione el tipo de reporte
             </h6>
         </div>
 
+
         <div class="card-body">
 
-            <!-- Mensaje inicial -->
+            <!-- ==========================================================
+             REPORTE DE MARCAS
+        =========================================================== -->
 
-            <div id="MensajeInicialReporte" class="text-center py-5">
+            <div id="ContenedorReporteMarcas">
 
-                <i class="fas fa-chart-line fa-4x text-gray-300 mb-3"></i>
+                <!-- Mensaje inicial -->
+                <div id="MensajeInicialReporte" class="text-center py-5">
 
-                <h5 class="text-gray-600">
-                    Reporte no generado
-                </h5>
+                    <i class="fas fa-chart-line fa-4x text-gray-300 mb-3"></i>
 
-                <p class="text-muted">
-                    Seleccione los filtros de búsqueda y presione
-                    <strong>"Generar Reporte"</strong>.
-                </p>
+                    <h5 class="text-gray-600">
+                        Reporte no generado
+                    </h5>
 
-            </div>
+                    <p class="text-muted">
+                        Seleccione los filtros de búsqueda y presione
+                        <strong>"Generar Reporte"</strong>.
+                    </p>
 
-            <!-- Tabla -->
+                </div>
 
-            <div id="ContenedorTablaReporte" style="display:none;">
+                <!-- Contenido del reporte -->
+                <div id="ContenidoReporteMarcas" style="display:none;">
 
-                <!-- Encabezado del Reporte -->
-                <div class="container-fluid mb-3">
+                    <!-- Encabezado -->
+                    <div class="container-fluid mb-3">
 
-                    <div class="row">
+                        <div class="row">
 
-                        <div class="col-md-6 pe-4">
-                            <strong>Empleado:</strong>
-                            <span id="LblEmpleadoReporte"></span>
+                            <div class="col-md-6 pe-4">
+                                <strong>Empleado:</strong>
+                                <span id="LblEmpleadoReporte"></span>
+                            </div>
+
+                            <div class="col-md-6 ps-4">
+                                <strong>Departamento:</strong>
+                                <span id="LblDepartamentoReporte"></span>
+                            </div>
+
                         </div>
 
-                        <div class="col-md-6 ps-4">
-                            <strong>Departamento:</strong>
-                            <span id="LblDepartamentoReporte"></span>
+                        <div class="row mt-2">
+
+                            <div class="col-md-6 pe-4">
+                                <strong>Período:</strong>
+                                <span id="LblPeriodoReporte"></span>
+                            </div>
+
+                            <div class="col-md-6 ps-4">
+                                <strong>Fecha del reporte:</strong>
+                                <span id="LblFechaReporte"></span>
+                            </div>
+
                         </div>
 
                     </div>
 
-                    <div class="row mt-2">
+                    <div class="table-responsive">
 
-                        <div class="col-md-6 pe-4">
-                            <strong>Período:</strong>
-                            <span id="LblPeriodoReporte"></span>
-                        </div>
+                        <table id="TbReporteTimeSheet"
+                               class="table table-sm table-bordered table-hover w-100">
 
-                        <div class="col-md-6 ps-4">
-                            <strong>Fecha del reporte:</strong>
-                            <span id="LblFechaReporte"></span>
-                        </div>
+                            <thead class="thead-light">
+
+                                <tr>
+                                    <th>Fecha</th>
+                                    <th>Entrada</th>
+                                    <th>Salida</th>
+                                    <th>Horas Trabajadas</th>
+                                    <th>Horas Extra</th>
+                                    <th>Estado</th>
+                                </tr>
+
+                            </thead>
+
+                            <tbody id="BodyReporteTimeSheet">
+                            </tbody>
+
+                        </table>
 
                     </div>
 
                 </div>
 
-                <div class="table-responsive">
+            </div>
 
-                    <table id="TbReporteTimeSheet"
-                           class="table table-sm table-bordered table-hover w-100">
+            <!-- ==========================================================
+             REPORTE DE AUSENCIAS
+        =========================================================== -->
 
-                        <thead class="thead-light">
+            <div id="ContenedorReporteAusencias" style="display:none;">
 
-                            <tr>
+                <div class="text-center py-5">
 
-                                <th>Fecha</th>
-                                <th>Entrada</th>
-                                <th>Salida</th>
-                                <th>Horas Trabajadas</th>
-                                <th>Horas Extra</th>
-                                <th>Estado</th>
+                    <i class="fas fa-user-times fa-4x text-gray-300 mb-3"></i>
 
-                            </tr>
+                    <h5 class="text-gray-600">
+                        Reporte de Ausencias
+                    </h5>
 
-                        </thead>
+                    <p class="text-muted">
+                        Próximamente.
+                    </p>
 
-                        <tbody id="BodyReporteTimeSheet">
-                        </tbody>
+                </div>
 
-                    </table>
+            </div>
+
+            <!-- ==========================================================
+                 REPORTE DE TARDÍAS
+            =========================================================== -->
+
+            <div id="ContenedorReporteTardias" style="display:none;">
+
+                <!-- Mensaje inicial -->
+                <div id="MensajeInicialReporteTardias" class="text-center py-5">
+
+                    <i class="fas fa-clock fa-4x text-gray-300 mb-3"></i>
+
+                    <h5 class="text-gray-600">
+                        Reporte de Tardías no generado
+                    </h5>
+
+                    <p class="text-muted">
+                        Seleccione los filtros de búsqueda y presione
+                        <strong>"Generar Reporte"</strong>.
+                    </p>
+
+                </div>
+
+                <!-- Contenido del reporte -->
+                <div id="ContenidoReporteTardias" style="display:none;">
+
+                    <!-- Encabezado del reporte -->
+                    <div class="container-fluid mb-3">
+
+                        <div class="row">
+
+                            <div class="col-md-6 pe-4">
+                                <strong>Empleado:</strong>
+                                <span id="LblEmpleadoReporteTardias"></span>
+                            </div>
+
+                            <div class="col-md-6 ps-4">
+                                <strong>Departamento:</strong>
+                                <span id="LblDepartamentoReporteTardias"></span>
+                            </div>
+
+                        </div>
+
+                        <div class="row mt-2">
+
+                            <div class="col-md-6 pe-4">
+                                <strong>Período:</strong>
+                                <span id="LblPeriodoReporteTardias"></span>
+                            </div>
+
+                            <div class="col-md-6 ps-4">
+                                <strong>Fecha del reporte:</strong>
+                                <span id="LblFechaReporteTardias"></span>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="table-responsive">
+
+                        <table id="TbReporteTardias"
+                               class="table table-sm table-bordered table-hover w-100">
+
+                            <thead class="thead-light">
+
+                                <tr>
+                                    <th>Fecha</th>
+                                    <th>Hora Esperada</th>
+                                    <th>Hora Entrada</th>
+                                    <th>Minutos Tardía</th>
+                                </tr>
+
+                            </thead>
+
+                            <tbody id="BodyReporteTardias">
+                            </tbody>
+
+                        </table>
+
+                    </div>
 
                 </div>
 

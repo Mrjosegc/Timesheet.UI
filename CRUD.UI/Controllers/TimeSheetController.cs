@@ -129,6 +129,7 @@ namespace CRUD.UI.Controllers
                 {
                     NombreEmpleado = primerRegistro.NombreCompleto,
                     NombreDepartamento = primerRegistro.NombreDepartamento,
+                    Cedula = primerRegistro.Cedula,
                     Periodo = $"{ObjTimeSheet.FechaInicio:dd/MM/yyyy} al {ObjTimeSheet.FechaFin:dd/MM/yyyy}",
                     FechaReporte = DateTime.Now,
                     Marcas = respuesta.ValorRetorno

@@ -240,9 +240,11 @@ namespace CRUD.DATA.DAPPER
                                 item.IdTimeSheet = Convert.ToInt32(dr["IdTimeSheet"]);
                                 item.IdUsuario = Convert.ToInt32(dr["IdUsuario"]);
                                 item.NombreCompleto = dr["NombreCompleto"].ToString();
+                                item.Cedula = dr["Cedula"].ToString();
                                 item.Fecha = Convert.ToDateTime(dr["Fecha"]);
                                 item.HoraEntrada = dr["HoraEntrada"] == DBNull.Value ? null : Convert.ToDateTime(dr["HoraEntrada"]);
                                 item.HoraSalida = dr["HoraSalida"] == DBNull.Value ? null : Convert.ToDateTime(dr["HoraSalida"]);
+                                item.HoraEntradaPuesto = (TimeSpan)dr["HoraEntradaPuesto"];
                                 item.MinutosTrabajados = dr["MinutosTrabajados"] == DBNull.Value ? null : Convert.ToInt32(dr["MinutosTrabajados"]);
                                 item.NombreDepartamento = dr["NombreDepartamento"].ToString();
                                 item.MinutosExtra = dr["MinutosExtra"] == DBNull.Value ? null : Convert.ToInt32(dr["MinutosExtra"]);

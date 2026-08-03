@@ -29,6 +29,11 @@ namespace CRUD.UI.Reportes
                 {
                     column.Spacing(15);
 
+                    // Fecha del reporte
+                    column.Item()
+                        .AlignRight()
+                        .Text($"Fecha del reporte: {_reporte.FechaReporte.ToString("dd/MM/yyyy hh:mm tt", new CultureInfo("es-CR"))}");
+
                     // Título
                     column.Item()
                         .Text("REPORTE DE MARCAS")
@@ -42,15 +47,13 @@ namespace CRUD.UI.Reportes
                         row.RelativeItem().Column(col =>
                         {
                             col.Item().Text($"Empleado: {_reporte.NombreEmpleado}");
-                            col.Item().Text($"Período: {_reporte.Periodo}");
+                            col.Item().Text($"Cédula: {_reporte.Cedula}");
                         });
 
                         row.RelativeItem().Column(col =>
                         {
                             col.Item().Text($"Departamento: {_reporte.NombreDepartamento}");
-                            col.Item().Text(
-                                $"Fecha del reporte: {_reporte.FechaReporte.ToString("dd/MM/yyyy hh:mm tt", new CultureInfo("es-CR"))}"
-                            );
+                            col.Item().Text($"Período: {_reporte.Periodo}");
                         });
                     });
 
@@ -76,8 +79,40 @@ namespace CRUD.UI.Reportes
                             header.Cell().BorderBottom(0.5f).Padding(5).AlignCenter().Text("Horas Extra").Bold();
                             header.Cell().BorderBottom(0.5f).Padding(5).AlignCenter().Text("Estado").Bold();
                         });
+
                         foreach (var marca in _reporte.Marcas)
                         {
+                            //==========================================================
+                            // ESTADO
+                            //==========================================================
+
+                            string estado = "";
+
+                            if (marca.Tardia)
+                            {
+                                estado += "Tardía";
+                            }
+
+                            if (marca.HoraSalida == null)
+                            {
+                                if (!string.IsNullOrEmpty(estado))
+                                {
+                                    estado += " | ";
+                                }
+
+                                estado += "Sin salida";
+                            }
+
+                            if (marca.HoraSalida != null)
+                            {
+                                if (!string.IsNullOrEmpty(estado))
+                                {
+                                    estado += " | ";
+                                }
+
+                                estado += "Completo";
+                            }
+
                             table.Cell()
                                 .BorderBottom(0.5f)
                                 .Padding(5)
@@ -90,7 +125,7 @@ namespace CRUD.UI.Reportes
                                 .AlignCenter()
                                 .Text(
                                     marca.HoraEntrada.HasValue
-                                        ? marca.HoraEntrada.Value.ToString("hh:mm tt", new System.Globalization.CultureInfo("es-CR"))
+                                        ? marca.HoraEntrada.Value.ToString("hh:mm tt", new CultureInfo("es-CR"))
                                         : "-"
                                 );
 
@@ -100,7 +135,7 @@ namespace CRUD.UI.Reportes
                                 .AlignCenter()
                                 .Text(
                                     marca.HoraSalida.HasValue
-                                        ? marca.HoraSalida.Value.ToString("hh:mm tt", new System.Globalization.CultureInfo("es-CR"))
+                                        ? marca.HoraSalida.Value.ToString("hh:mm tt", new CultureInfo("es-CR"))
                                         : "-"
                                 );
 
@@ -128,7 +163,7 @@ namespace CRUD.UI.Reportes
                                 .BorderBottom(0.5f)
                                 .Padding(5)
                                 .AlignCenter()
-                                .Text("-");
+                                .Text(estado);
                         }
 
                     });

@@ -19,20 +19,32 @@
         EstadoSalida: "#EstadoSalida",
 
         btnBuscarEmpleado: "#btnBuscarEmpleado",
+        SelectTipoReporte: "#SelectTipoReporte",
         ddlDepartamento: "#ddlDepartamento",
         TxtIdEmpleado: "#txtIdEmpleado",
         TxtEmpleado: "#txtEmpleado",
-
-        BtnGenerarReporte: "#btnGenerarReporte",
 
         TxtFechaInicio: "#txtFechaInicio",
         TxtFechaFin: "#txtFechaFin",
 
         BodyReporteTimeSheet: "#BodyReporteTimeSheet",
 
-        ContenedorTablaReporte: "#ContenedorTablaReporte",
+        ContenedorReporteMarcas: "#ContenedorReporteMarcas",
+        ContenedorReporteAusencias: "#ContenedorReporteAusencias",
+        ContenedorReporteTardias: "#ContenedorReporteTardias",
+        TituloReporte: "#TituloReporte",
         BtnGenerarReporte: "#BtnGenerarReporte",
         BtnExportarPdf: "#BtnExportarPdf",
+
+        LblEmpleadoReporteTardias: "#LblEmpleadoReporteTardias",
+        LblDepartamentoReporteTardias: "#LblDepartamentoReporteTardias",
+        LblPeriodoReporteTardias: "#LblPeriodoReporteTardias",
+        LblFechaReporteTardias: "#LblFechaReporteTardias",
+
+        MensajeInicialReporteTardias: "#MensajeInicialReporteTardias",
+        ContenidoReporteTardias: "#ContenidoReporteTardias",
+
+        BodyReporteTardias: "#BodyReporteTardias",
     },
 
     iniciar: function () {
@@ -40,6 +52,8 @@
         jsTimeSheet.eventos();
 
         jsTimeSheet.funciones.InicializarTablaBuscarEmpleado();
+
+        jsTimeSheet.funciones.CambiarTipoReporte();
 
         // Solo ejecutar estas funciones en la vista TimeSheet
         if (document.getElementById("HoraActual")) {
@@ -86,21 +100,71 @@
 
         $(jsTimeSheet.controles.BtnGenerarReporte).click(function () {
 
-            jsTimeSheet.funciones.GenerarReporte();
+            switch ($(jsTimeSheet.controles.SelectTipoReporte).val()) {
+
+                case "Marcas":
+                    jsTimeSheet.funciones.GenerarReporteMarcas();
+                    break;
+
+                case "Ausencias":
+                    jsTimeSheet.funciones.GenerarReporteAusencias();
+                    break;
+
+                case "Tardias":
+                    jsTimeSheet.funciones.GenerarReporteTardias();
+                    break;
+            }
 
         });
 
         $(jsTimeSheet.controles.BtnExportarPdf).click(function () {
 
-            jsTimeSheet.funciones.ExportarReportePdf();
+            switch ($(jsTimeSheet.controles.SelectTipoReporte).val()) {
+
+                case "Marcas":
+
+                    jsTimeSheet.funciones.ExportarReporteMarcasPdf();
+
+                    break;
+
+                case "Ausencias":
+
+                    jsTimeSheet.funciones.ExportarReporteAusenciasPdf();
+
+                    break;
+
+                case "Tardias":
+
+                    jsTimeSheet.funciones.ExportarReporteTardiasPdf();
+
+                    break;
+
+            }
 
         });
+
         $(jsTimeSheet.controles.ddlDepartamento).change(function () {
 
             $(jsTimeSheet.controles.TxtIdEmpleado).val("0");
             $(jsTimeSheet.controles.TxtEmpleado).val("");
 
         });
+
+        $(jsTimeSheet.controles.SelectTipoReporte).change(function () {
+
+            let tipoReporte = $(this).val();
+
+            console.log(tipoReporte);
+
+        });
+
+        $(jsTimeSheet.controles.SelectTipoReporte).change(function () {
+
+            jsTimeSheet.funciones.CambiarTipoReporte();
+
+        });
+
+
     },
 
     funciones: {
@@ -484,7 +548,30 @@
 
         },
 
-        GenerarReporte: async function () {
+        InicializarTablaBuscarEmpleado: function () {
+
+            if ($.fn.DataTable.isDataTable("#TbBuscarEmpleado")) {
+                return;
+            }
+
+            $("#TbBuscarEmpleado").DataTable({
+
+                pageLength: 10,
+                lengthChange: false,
+                ordering: true,
+                searching: true,
+                info: true,
+                autoWidth: false,
+
+                language: {
+                    url: "https://cdn.datatables.net/plug-ins/2.3.2/i18n/es-ES.json"
+                }
+
+            });
+
+        },
+
+        GenerarReporteMarcas: async function () {
 
             try {
 
@@ -563,7 +650,8 @@
 
                 if (resultado.valorRetorno.length == 0) {
 
-                    $(jsTimeSheet.controles.ContenedorTablaReporte).hide();
+                    $("#MensajeInicialReporte").show();
+                    $("#ContenidoReporteMarcas").hide();
 
                     Swal.fire({
                         icon: "info",
@@ -688,7 +776,8 @@
 
                 });
 
-                $(jsTimeSheet.controles.ContenedorTablaReporte).show();
+                $("#MensajeInicialReporte").hide();
+                $("#ContenidoReporteMarcas").show();
 
             }
             catch (e) {
@@ -703,7 +792,211 @@
 
         },
 
-        ExportarReportePdf: async function () {
+        GenerarReporteTardias: async function () {
+
+            try {
+
+                if ($(jsTimeSheet.controles.TxtIdEmpleado).val() == "0") {
+
+                    Swal.fire({
+                        icon: "warning",
+                        title: "Aviso",
+                        text: "Debe seleccionar un empleado."
+                    });
+
+                    return;
+                }
+
+                if ($(jsTimeSheet.controles.TxtFechaInicio).val() == "" ||
+                    $(jsTimeSheet.controles.TxtFechaFin).val() == "") {
+
+                    Swal.fire({
+                        icon: "warning",
+                        title: "Aviso",
+                        text: "Debe seleccionar un rango de fechas."
+                    });
+
+                    return;
+                }
+
+                let idUsuario = parseInt($("#IdUsuarioTimeSheet").text());
+
+                if ($(jsTimeSheet.controles.TxtIdEmpleado).length > 0) {
+
+                    let idSeleccionado = parseInt($(jsTimeSheet.controles.TxtIdEmpleado).val());
+
+                    if (idSeleccionado > 0) {
+                        idUsuario = idSeleccionado;
+                    }
+
+                }
+
+                let ObjTimeSheet = {
+
+                    IdUsuario: idUsuario,
+
+                    FechaInicio: $(jsTimeSheet.controles.TxtFechaInicio).val(),
+
+                    FechaFin: $(jsTimeSheet.controles.TxtFechaFin).val()
+
+                };
+
+                let respuesta = await fetch("/TimeSheet/ObtenerReporteTimeSheet", {
+
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+
+                    body: JSON.stringify(ObjTimeSheet)
+
+                });
+
+                let resultado = await respuesta.json();
+
+                if (!resultado.ok) {
+
+                    Swal.fire({
+                        icon: "error",
+                        title: "Error",
+                        text: resultado.mensaje
+                    });
+
+                    return;
+
+                }
+
+                $(jsTimeSheet.controles.BodyReporteTardias).empty();
+
+                if (resultado.valorRetorno.length == 0) {
+
+                    $("#MensajeInicialReporteTardias").show();
+                    $("#ContenidoReporteTardias").hide();
+
+                    Swal.fire({
+                        icon: "info",
+                        title: "Sin resultados",
+                        text: "No existen registros para la búsqueda realizada."
+                    });
+
+                    return;
+                }
+
+                let primerRegistro = resultado.valorRetorno[0];
+
+                $("#LblEmpleadoReporteTardias").text(primerRegistro.nombreCompleto);
+
+                $("#LblDepartamentoReporteTardias").text(primerRegistro.nombreDepartamento);
+
+                let fechaInicio = $(jsTimeSheet.controles.TxtFechaInicio).val().split("-").reverse().join("/");
+
+                let fechaFin = $(jsTimeSheet.controles.TxtFechaFin).val().split("-").reverse().join("/");
+
+                $("#LblPeriodoReporteTardias").text(`${fechaInicio} al ${fechaFin}`);
+
+                $("#LblFechaReporteTardias").text(
+                    new Date().toLocaleString("es-CR", {
+                        day: "2-digit",
+                        month: "2-digit",
+                        year: "numeric",
+                        hour: "2-digit",
+                        minute: "2-digit",
+                        hour12: true
+                    })
+                );
+
+                resultado.valorRetorno
+                    .filter(x => x.tardia)
+                    .forEach(function (item) {
+                        let fecha = new Date(item.fecha).toLocaleDateString("es-CR");
+
+                        let horaEsperada = "";
+
+                        if (item.horaEntradaPuesto != null) {
+
+                            horaEsperada = item.horaEntradaPuesto.substring(0, 5);
+
+                        }
+
+                        let horaEntrada = "";
+
+                        if (item.horaEntrada != null) {
+
+                            horaEntrada = new Date(item.horaEntrada).toLocaleTimeString("es-CR", {
+                                hour: "2-digit",
+                                minute: "2-digit",
+                                hour12: true
+                            });
+
+                        }
+
+                        let minutosTardia = 0;
+
+                        if (item.horaEntrada != null && item.horaEntradaPuesto != null) {
+
+                            let entrada = new Date(item.horaEntrada);
+
+                            let partes = item.horaEntradaPuesto.split(":");
+
+                            let horaProgramada = new Date(item.horaEntrada);
+
+                            horaProgramada.setHours(parseInt(partes[0]));
+                            horaProgramada.setMinutes(parseInt(partes[1]));
+                            horaProgramada.setSeconds(0);
+
+                            minutosTardia = Math.floor((entrada - horaProgramada) / 60000);
+
+                        }
+
+                        let fila = `
+                        <tr>
+
+                            <td>${fecha}</td>
+
+                            <td>${horaEsperada}</td>
+
+                            <td>${horaEntrada}</td>
+
+                            <td>${minutosTardia} min</td>
+
+                        </tr>
+                        `;
+
+                        $("#MensajeInicialReporteTardias").hide();
+
+                        $(jsTimeSheet.controles.BodyReporteTardias).append(fila);
+
+                    });
+
+                $("#MensajeInicialReporteTardias").hide();
+
+                $("#ContenidoReporteTardias").show();
+
+            }
+            catch (e) {
+
+                Swal.fire({
+                    icon: "error",
+                    title: "Error",
+                    text: e
+                });
+
+            }
+
+        },
+
+        GenerarReporteAusencias: async function () {
+
+            Swal.fire({
+                icon: "info",
+                title: "Próximamente",
+                text: "Reporte de Ausencias"
+            });
+
+        },
+
+        ExportarReporteMarcasPdf: async function () {
 
             try {
 
@@ -793,26 +1086,57 @@
 
         },
 
-        InicializarTablaBuscarEmpleado: function () {
+        ExportarReporteTardiasPdf: function () {
 
-            if ($.fn.DataTable.isDataTable("#TbBuscarEmpleado")) {
-                return;
-            }
-
-            $("#TbBuscarEmpleado").DataTable({
-
-                pageLength: 10,
-                lengthChange: false,
-                ordering: true,
-                searching: true,
-                info: true,
-                autoWidth: false,
-
-                language: {
-                    url: "https://cdn.datatables.net/plug-ins/2.3.2/i18n/es-ES.json"
-                }
-
+            Swal.fire({
+                icon: "info",
+                title: "Próximamente",
+                text: "Exportar Reporte de Tardías"
             });
+
+        },
+
+        ExportarReporteAusenciasPdf: function () {
+
+            Swal.fire({
+                icon: "info",
+                title: "Próximamente",
+                text: "Exportar Reporte de Ausencias"
+            });
+
+        },
+
+        CambiarTipoReporte: function () {
+
+            let tipoReporte = $(jsTimeSheet.controles.SelectTipoReporte).val();
+
+            $("#ContenedorReporteMarcas").hide();
+            $("#ContenedorReporteAusencias").hide();
+            $("#ContenedorReporteTardias").hide();
+
+            switch (tipoReporte) {
+
+                case "Marcas":
+
+                    $("#TituloReporte").text("Reporte de Marcas");
+                    $("#ContenedorReporteMarcas").show();
+
+                    break;
+
+                case "Ausencias":
+
+                    $("#TituloReporte").text("Reporte de Ausencias");
+                    $("#ContenedorReporteAusencias").show();
+
+                    break;
+
+                case "Tardias":
+
+                    $("#TituloReporte").text("Reporte de Tardías");
+                    $("#ContenedorReporteTardias").show();
+
+                    break;
+            }
 
         },
 
