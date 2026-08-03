@@ -45,6 +45,7 @@
         ContenidoReporteTardias: "#ContenidoReporteTardias",
 
         BodyReporteTardias: "#BodyReporteTardias",
+        BodyReporteAusencias: "#BodyReporteAusencias",
     },
 
     iniciar: function () {
@@ -1010,11 +1011,170 @@
 
         GenerarReporteAusencias: async function () {
 
-            Swal.fire({
-                icon: "info",
-                title: "Próximamente",
-                text: "Reporte de Ausencias"
-            });
+            try {
+
+                if ($(jsTimeSheet.controles.TxtIdEmpleado).val() == "0") {
+
+                    Swal.fire({
+                        icon: "warning",
+                        title: "Aviso",
+                        text: "Debe seleccionar un empleado."
+                    });
+
+                    return;
+                }
+
+                if ($(jsTimeSheet.controles.TxtFechaInicio).val() == "" ||
+                    $(jsTimeSheet.controles.TxtFechaFin).val() == "") {
+
+                    Swal.fire({
+                        icon: "warning",
+                        title: "Aviso",
+                        text: "Debe seleccionar un rango de fechas."
+                    });
+
+                    return;
+                }
+
+                let idUsuario = parseInt($("#IdUsuarioTimeSheet").text());
+
+                if ($(jsTimeSheet.controles.TxtIdEmpleado).length > 0) {
+
+                    let idSeleccionado = parseInt($(jsTimeSheet.controles.TxtIdEmpleado).val());
+
+                    if (idSeleccionado > 0) {
+                        idUsuario = idSeleccionado;
+                    }
+
+                }
+
+                let ObjTimeSheet = {
+
+                    IdUsuario: idUsuario,
+
+                    FechaInicio: $(jsTimeSheet.controles.TxtFechaInicio).val(),
+
+                    FechaFin: $(jsTimeSheet.controles.TxtFechaFin).val()
+
+                };
+
+                let respuesta = await fetch("/TimeSheet/ObtenerReporteAusencias", {
+
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+
+                    body: JSON.stringify(ObjTimeSheet)
+
+                });
+
+                let resultado = await respuesta.json();
+
+                if (!resultado.ok) {
+
+                    Swal.fire({
+                        icon: "error",
+                        title: "Error",
+                        text: resultado.mensaje
+                    });
+
+                    return;
+
+                }
+
+                $(jsTimeSheet.controles.BodyReporteAusencias).empty();
+
+                if (resultado.valorRetorno.length == 0) {
+
+                    $("#MensajeInicialReporteAusencias").show();
+                    $("#ContenidoReporteAusencias").hide();
+
+                    Swal.fire({
+                        icon: "info",
+                        title: "Sin resultados",
+                        text: "No existen registros para la búsqueda realizada."
+                    });
+
+                    return;
+                }
+
+                let primerRegistro = resultado.valorRetorno[0];
+
+                $("#LblEmpleadoReporteAusencias").text(primerRegistro.nombreCompleto);
+
+                $("#LblDepartamentoReporteAusencias").text(primerRegistro.nombreDepartamento);
+
+                let fechaInicio = $(jsTimeSheet.controles.TxtFechaInicio).val().split("-").reverse().join("/");
+
+                let fechaFin = $(jsTimeSheet.controles.TxtFechaFin).val().split("-").reverse().join("/");
+
+                $("#LblPeriodoReporteAusencias").text(`${fechaInicio} al ${fechaFin}`);
+
+                $("#LblFechaReporteAusencias").text(
+                    new Date().toLocaleString("es-CR", {
+                        day: "2-digit",
+                        month: "2-digit",
+                        year: "numeric",
+                        hour: "2-digit",
+                        minute: "2-digit",
+                        hour12: true
+                    })
+                );
+
+                let totalAusencias = 0;
+
+                resultado.valorRetorno.forEach(function (item) {
+
+                    let fecha = new Date(item.fecha).toLocaleDateString("es-CR");
+
+                    totalAusencias++;
+
+                    let fila = `
+            <tr>
+
+                <td>${fecha}</td>
+
+                <td>Ausente</td>
+
+            </tr>
+            `;
+
+                    $(jsTimeSheet.controles.BodyReporteAusencias).append(fila);
+
+                });
+
+                let filaResumen = `
+        <tr class="table-primary fw-bold">
+
+            <td class="text-end">
+                Total de ausencias:
+            </td>
+
+            <td>
+                ${totalAusencias}
+            </td>
+
+        </tr>
+        `;
+
+                $(jsTimeSheet.controles.BodyReporteAusencias).append(filaResumen);
+
+                $("#MensajeInicialReporteAusencias").hide();
+
+                $("#ContenidoReporteAusencias").show();
+
+            }
+            catch (e) {
+
+                Swal.fire({
+                    icon: "error",
+                    title: "Error",
+                    text: e
+                });
+
+            }
 
         },
 
@@ -1198,13 +1358,93 @@
 
         },
 
-        ExportarReporteAusenciasPdf: function () {
+        ExportarReporteAusenciasPdf: async function () {
 
-            Swal.fire({
-                icon: "info",
-                title: "Próximamente",
-                text: "Exportar Reporte de Ausencias"
-            });
+            try {
+
+                if ($(jsTimeSheet.controles.TxtIdEmpleado).val() == "0") {
+
+                    Swal.fire({
+                        icon: "warning",
+                        title: "Aviso",
+                        text: "Debe seleccionar un empleado."
+                    });
+
+                    return;
+                }
+
+                if ($(jsTimeSheet.controles.TxtFechaInicio).val() == "" ||
+                    $(jsTimeSheet.controles.TxtFechaFin).val() == "") {
+
+                    Swal.fire({
+                        icon: "warning",
+                        title: "Aviso",
+                        text: "Debe seleccionar un rango de fechas."
+                    });
+
+                    return;
+                }
+
+                let idUsuario = parseInt($("#IdUsuarioTimeSheet").text());
+
+                if ($(jsTimeSheet.controles.TxtIdEmpleado).length > 0) {
+
+                    let idSeleccionado = parseInt($(jsTimeSheet.controles.TxtIdEmpleado).val());
+
+                    if (idSeleccionado > 0) {
+                        idUsuario = idSeleccionado;
+                    }
+                }
+
+                let ObjTimeSheet = {
+
+                    IdUsuario: idUsuario,
+
+                    FechaInicio: $(jsTimeSheet.controles.TxtFechaInicio).val(),
+
+                    FechaFin: $(jsTimeSheet.controles.TxtFechaFin).val()
+
+                };
+
+                let respuesta = await fetch("/TimeSheet/ExportarReporteAusenciasPdf", {
+
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+
+                    body: JSON.stringify(ObjTimeSheet)
+
+                });
+
+                if (!respuesta.ok) {
+
+                    Swal.fire({
+                        icon: "error",
+                        title: "Error",
+                        text: "No fue posible generar el PDF."
+                    });
+
+                    return;
+                }
+
+                const blob = await respuesta.blob();
+
+                const url = window.URL.createObjectURL(blob);
+
+                window.open(url, "_blank");
+
+            }
+            catch (e) {
+
+                Swal.fire({
+                    icon: "error",
+                    title: "Error",
+                    text: e
+                });
+
+            }
 
         },
 

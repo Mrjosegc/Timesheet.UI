@@ -188,6 +188,66 @@ namespace CRUD.UI.Controllers
             }
         }
 
+        [HttpPost]
+        public Respuesta<List<TimeSheetDTO>> ObtenerReporteAusencias([FromBody] TimeSheetDTO ObjTimeSheet)
+        {
+            Respuesta<List<TimeSheetDTO>> respuesta = new Respuesta<List<TimeSheetDTO>>();
+
+            try
+            {
+                respuesta = _MantTimeSheetBLL.ObtenerReporteAusencias(ObjTimeSheet);
+            }
+            catch (Exception ex)
+            {
+                respuesta.Ok = false;
+                respuesta.Mensaje = $"Ha ocurrido un error en la función ObtenerReporteAusencias del Controller. {ex.Message}";
+                respuesta.ValorRetorno = null;
+            }
+
+            return respuesta;
+        }
+
+        [HttpPost]
+        public IActionResult ExportarReporteAusenciasPdf([FromBody] TimeSheetDTO ObjTimeSheet)
+        {
+            try
+            {
+                var respuesta = _MantTimeSheetBLL.ObtenerReporteAusencias(ObjTimeSheet);
+
+                if (!respuesta.Ok)
+                {
+                    return BadRequest(respuesta.Mensaje);
+                }
+
+                if (respuesta.ValorRetorno == null || respuesta.ValorRetorno.Count == 0)
+                {
+                    return BadRequest("No existen datos para generar el reporte.");
+                }
+
+                var primerRegistro = respuesta.ValorRetorno.First();
+
+                var reporte = new ReporteMarcasPdfDTO
+                {
+                    NombreEmpleado = primerRegistro.NombreCompleto,
+                    NombreDepartamento = primerRegistro.NombreDepartamento,
+                    Cedula = primerRegistro.Cedula,
+                    Periodo = $"{ObjTimeSheet.FechaInicio:dd/MM/yyyy} al {ObjTimeSheet.FechaFin:dd/MM/yyyy}",
+                    FechaReporte = DateTime.Now,
+                    Marcas = respuesta.ValorRetorno
+                };
+
+                var documento = new ReporteAusenciasPdf(reporte);
+
+                byte[] pdf = documento.GeneratePdf();
+
+                return File(pdf, "application/pdf", "ReporteAusencias.pdf");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         #endregion
     }
 }

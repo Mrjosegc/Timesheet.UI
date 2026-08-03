@@ -44,6 +44,24 @@ namespace CRUD.BUSSINESLOGIC.BLL
             return _MantTimeSheetDAPPER.ObtenerReporteTimeSheet(ObjTimeSheet);
         }
 
+        public Respuesta<List<TimeSheetDTO>> ObtenerReporteAusencias(TimeSheetDTO ObjTimeSheet)
+        {
+            Respuesta<List<TimeSheetDTO>> respuesta = new Respuesta<List<TimeSheetDTO>>();
+
+            try
+            {
+                respuesta = _MantTimeSheetDAPPER.ObtenerReporteAusencias(ObjTimeSheet);
+            }
+            catch (Exception ex)
+            {
+                respuesta.Ok = false;
+                respuesta.Mensaje = $"Ha ocurrido un error en la función ObtenerReporteAusencias del BLL. {ex.Message}";
+                respuesta.ValorRetorno = null;
+            }
+
+            return respuesta;
+        }
+
         #endregion
 
     }

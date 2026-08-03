@@ -17,6 +17,7 @@ namespace CRUD.DATA.DAPPER
         private const string sp_spRegistrarSalida = "spRegistrarSalida";
         private const string sp_spObtenerEstadoTimeSheet = "spObtenerEstadoTimeSheet";
         private const string sp_spObtenerReporteTimeSheet = "spObtenerReporteTimeSheet";
+        private const string sp_spObtenerReporteAusencias = "spObtenerReporteAusencias";
 
         #endregion
 
@@ -249,6 +250,80 @@ namespace CRUD.DATA.DAPPER
                                 item.NombreDepartamento = dr["NombreDepartamento"].ToString();
                                 item.MinutosExtra = dr["MinutosExtra"] == DBNull.Value ? null : Convert.ToInt32(dr["MinutosExtra"]);
                                 item.Tardia = Convert.ToBoolean(dr["Tardia"]);
+
+                                lista.Add(item);
+                            }
+                        }
+                    }
+                }
+
+                respuesta.Ok = true;
+                respuesta.Mensaje = "Reporte obtenido correctamente.";
+                respuesta.ValorRetorno = lista;
+            }
+            catch (Exception ex)
+            {
+                respuesta.Ok = false;
+                respuesta.Mensaje = $"Ha ocurrido un error en la función ObtenerReporteTimeSheet de la capa DAPPER. {ex.Message}";
+                respuesta.ValorRetorno = null;
+            }
+
+            return respuesta;
+        }
+
+        public Respuesta<List<TimeSheetDTO>> ObtenerReporteAusencias(TimeSheetDTO ObjTimeSheet)
+        {
+            Respuesta<List<TimeSheetDTO>> respuesta = new Respuesta<List<TimeSheetDTO>>();
+
+            try
+            {
+                List<TimeSheetDTO> lista = new List<TimeSheetDTO>();
+
+                var ConexionBD = _Config.GetConnectionString("Conexion");
+
+                using (SqlConnection connection = new SqlConnection(ConexionBD))
+                {
+                    connection.Open();
+
+                    using (SqlCommand command = new SqlCommand(sp_spObtenerReporteAusencias, connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+
+                        command.Parameters.Add(new SqlParameter("@pIdUsuario", SqlDbType.Int)
+                        {
+                            Value = ObjTimeSheet.IdUsuario == 0
+                                ? DBNull.Value
+                                : ObjTimeSheet.IdUsuario
+                        });
+
+                        command.Parameters.Add(new SqlParameter("@pFechaInicio", SqlDbType.Date)
+                        {
+                            Value = ObjTimeSheet.FechaInicio == null
+                                ? DBNull.Value
+                                : ObjTimeSheet.FechaInicio
+                        });
+
+                        command.Parameters.Add(new SqlParameter("@pFechaFin", SqlDbType.Date)
+                        {
+                            Value = ObjTimeSheet.FechaFin == null
+                                ? DBNull.Value
+                                : ObjTimeSheet.FechaFin
+                        });
+
+                        using (SqlDataReader dr = command.ExecuteReader())
+                        {
+                            while (dr.Read())
+                            {
+                                TimeSheetDTO item = new TimeSheetDTO();
+
+                                item.IdUsuario = Convert.ToInt32(dr["IdUsuario"]);
+                                item.NombreCompleto = dr["NombreCompleto"].ToString();
+                                item.Cedula = dr["Cedula"].ToString();
+                                item.Fecha = Convert.ToDateTime(dr["Fecha"]);
+                                item.HoraEntrada = dr["HoraEntrada"] == DBNull.Value ? null : Convert.ToDateTime(dr["HoraEntrada"]);
+                                item.HoraSalida = dr["HoraSalida"] == DBNull.Value ? null : Convert.ToDateTime(dr["HoraSalida"]);
+                                item.HoraEntradaPuesto = (TimeSpan)dr["HoraEntradaPuesto"];
+                                item.NombreDepartamento = dr["NombreDepartamento"].ToString();
 
                                 lista.Add(item);
                             }
