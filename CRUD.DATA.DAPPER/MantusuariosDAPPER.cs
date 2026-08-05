@@ -405,50 +405,37 @@ namespace CRUD.DATA.DAPPER
             Respuesta<UsuarioDTO> respuesta = new Respuesta<UsuarioDTO>();
             try
             {
-
                 var ConexionBD = _Config.GetConnectionString("Conexion");
 
                 using (SqlConnection connection = new SqlConnection(ConexionBD))
                 {
-
                     connection.Open();
-
 
                     using (SqlCommand command = new SqlCommand(sp_spEliminarUsuarioPorId, connection))
                     {
-
                         command.CommandType = CommandType.StoredProcedure;
 
-                        command.Parameters.Add(new SqlParameter("@pIdUsuario", SqlDbType.Int) { Value = ObjUsuario.IdUsuario });
-
-                        int FilasAfectadas = command.ExecuteNonQuery();
-
-                        if (FilasAfectadas > 0)
+                        command.Parameters.Add(new SqlParameter("@pIdUsuario", SqlDbType.Int)
                         {
-                            respuesta.Ok = true;
-                            respuesta.Mensaje = "El usuario ha sido eliminado permanentemente!";
-                            respuesta.ValorRetorno = null;
-                        }
-                        else
-                        {
-                            respuesta.Ok = false;
-                            respuesta.Mensaje = "Ha ocurrido un error al intentar eliminar la información del usuario.";
-                            respuesta.ValorRetorno = null;
-                        }
+                            Value = ObjUsuario.IdUsuario
+                        });
 
+                        command.ExecuteNonQuery();
+
+                        respuesta.Ok = true;
+                        respuesta.Mensaje = "El usuario ha sido eliminado permanentemente.";
+                        respuesta.ValorRetorno = null;
                     }
-
                 }
-
             }
             catch (Exception ex)
             {
-
                 respuesta.Ok = false;
-                respuesta.Mensaje = $"Ha ocurrido un error en la función EliminarUsuarioPorId de la capa DAPPER {ex.Message}";
+                respuesta.Mensaje = $"Ha ocurrido un error en la función EliminarUsuarioPorId de la capa DAPPER. {ex.Message}";
                 respuesta.ValorRetorno = null;
-
             }
+
+            return respuesta;
 
             return respuesta;
 
@@ -627,30 +614,26 @@ namespace CRUD.DATA.DAPPER
 
                     connection.Open();
 
-
                     using (SqlCommand command = new SqlCommand(sp_spEliminarRolPorId, connection))
                     {
-
                         command.CommandType = CommandType.StoredProcedure;
 
-                        command.Parameters.Add(new SqlParameter("@pIdRol", SqlDbType.Int) { Value = ObjRol.IdRol });
-
-                        int FilasAfectadas = command.ExecuteNonQuery();
-
-                        if (FilasAfectadas > 0)
+                        command.Parameters.Add(new SqlParameter("@pIdRol", SqlDbType.Int)
                         {
-                            respuesta.Ok = true;
-                            respuesta.Mensaje = "El rol ha sido eliminado permanentemente!";
-                            respuesta.ValorRetorno = null;
-                        }
-                        else
-                        {
-                            respuesta.Ok = false;
-                            respuesta.Mensaje = "Ha ocurrido un error al intentar eliminar la información del rol.";
-                            respuesta.ValorRetorno = null;
-                        }
+                            Value = ObjRol.IdRol
+                        });
 
+                        using (SqlDataReader dr = command.ExecuteReader())
+                        {
+                            if (dr.Read())
+                            {
+                                respuesta.Ok = Convert.ToInt32(dr["Resultado"]) == 1;
+                                respuesta.Mensaje = dr["Mensaje"].ToString();
+                                respuesta.ValorRetorno = null;
+                            }
+                        }
                     }
+
 
                 }
 
